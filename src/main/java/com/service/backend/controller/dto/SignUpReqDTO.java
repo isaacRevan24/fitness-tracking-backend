@@ -7,6 +7,9 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * @author Severiano Atencio
+ */
 @Getter
 @Setter
 public class SignUpReqDTO implements Serializable {
