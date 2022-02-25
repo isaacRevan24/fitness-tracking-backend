@@ -4,17 +4,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.io.Serial;
-import java.io.Serializable;
 
 /**
  * @author Severiano Atencio
  */
-@JsonPropertyOrder({"status","body"})
+@JsonPropertyOrder({"status", "body"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FitnessResponseEntity<T> implements Serializable {
+public class FitnessResponseEntity<T> extends BaseResponseEntity {
 
     @Serial
-    private static final long serialVersionUID = 2275287243310937577L;
+    private static final long serialVersionUID = 8331872137850836928L;
 
     protected transient T body;
 
