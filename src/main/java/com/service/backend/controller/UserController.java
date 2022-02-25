@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Severiano Atencio
  */
 @RestController
-@RequestMapping("v1/fitness")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
