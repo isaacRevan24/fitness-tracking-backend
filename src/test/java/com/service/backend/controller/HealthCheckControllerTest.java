@@ -32,7 +32,7 @@ public class HealthCheckControllerTest {
     void itShouldHealthCheckSuccessfully() throws Exception {
         // Given
         // When
-        mockMvc.perform(get("/v1/fitness/health-check")
+        mockMvc.perform(get("/user/health-check")
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
