@@ -26,11 +26,10 @@ public class StatusDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 8018062300307081690L;
 
-    @JsonIgnore
-    private HttpStatus httpStatus;
-
     private String code;
 
     private String message;
 
+    @JsonIgnore
+    private HttpStatus httpStatus;
 }
