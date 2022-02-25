@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serial;
@@ -15,6 +16,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StatusDTO implements Serializable {
 

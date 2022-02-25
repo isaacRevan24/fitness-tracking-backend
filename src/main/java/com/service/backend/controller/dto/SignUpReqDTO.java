@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class SignUpReq implements Serializable {
+public class SignUpReqDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 6254622590391243123L;
