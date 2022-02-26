@@ -1,6 +1,6 @@
 package com.service.backend.mapper;
 
-import com.service.backend.controller.dto.StatusDTO;
+import com.service.backend.model.StatusDTO;
 import com.service.backend.enums.StatusEnum;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

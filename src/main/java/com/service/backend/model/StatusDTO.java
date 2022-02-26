@@ -1,4 +1,4 @@
-package com.service.backend.controller.dto;
+package com.service.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
