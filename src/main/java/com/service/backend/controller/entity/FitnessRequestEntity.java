@@ -7,6 +7,9 @@ import javax.validation.Valid;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * @author Severiano Atencio
+ */
 @JsonPropertyOrder({"body"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FitnessRequestEntity<T> implements Serializable {
