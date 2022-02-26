@@ -1,4 +1,4 @@
-package com.service.backend.controller.dto;
+package com.service.backend.model;
 
 
 import lombok.Getter;

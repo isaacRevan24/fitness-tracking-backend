@@ -2,7 +2,7 @@ package com.service.backend.controller.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.service.backend.controller.dto.StatusDTO;
+import com.service.backend.model.StatusDTO;
 
 import java.io.Serial;
 import java.io.Serializable;
