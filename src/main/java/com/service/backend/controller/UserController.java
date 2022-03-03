@@ -1,11 +1,15 @@
 package com.service.backend.controller;
 
+import com.service.backend.command.FitnessCommand;
 import com.service.backend.controller.entity.BaseResponseEntity;
 import com.service.backend.controller.entity.FitnessRequestEntity;
+import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.enums.StatusEnum;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
+import com.service.backend.model.StatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +29,10 @@ public class UserController {
     @Autowired
     private FitnessMapper mapper;
 
+    @Autowired
+    @Qualifier("SignUpCommand")
+    private FitnessCommand<SignUpReqDTO, StatusDTO> signUpCommand;
+
     @GetMapping(path = "/health-check")
     public ResponseEntity<BaseResponseEntity> healthCheck() {
 
@@ -37,9 +45,11 @@ public class UserController {
     @PostMapping(path = "/sign-up")
     public ResponseEntity<BaseResponseEntity> signUp(@Valid @RequestBody FitnessRequestEntity<SignUpReqDTO> body) {
 
-        var response = new BaseResponseEntity();
+        var request = new FitnessRequestEntity<SignUpReqDTO>();
 
-        response.setStatus(mapper.toStatusDTO(StatusEnum.SUCCESS));
+        request.setBody(body.getBody());
+
+        var response = signUpCommand.execute(request);
 
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }

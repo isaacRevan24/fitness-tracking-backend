@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @author Severiano Atencio
  */
 @Slf4j
-@Component
+@Component("SignUpCommand")
 public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
     @Autowired
