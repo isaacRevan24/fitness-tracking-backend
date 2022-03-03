@@ -7,10 +7,12 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * @author Severiano Atencio
@@ -28,7 +30,8 @@ public class ClientEntity implements Serializable {
 
     @Id
     @Column(name = "id")
-    private String id;
+    @GeneratedValue(generator = "UUID")
+    private UUID id;
 
     @Column(name = "username")
     private String username;

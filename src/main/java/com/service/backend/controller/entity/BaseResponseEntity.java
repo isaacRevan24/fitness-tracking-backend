@@ -7,6 +7,9 @@ import com.service.backend.model.StatusDTO;
 import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * @author Severiano Atencio
+ */
 @JsonPropertyOrder({"status"})
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseResponseEntity implements Serializable {
