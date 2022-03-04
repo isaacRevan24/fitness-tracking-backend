@@ -11,7 +11,8 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum StatusEnum {
 
-    SUCCESS("FIT-00", "Success", HttpStatus.OK);
+    SUCCESS("FIT-00", "Success", HttpStatus.OK),
+    DATABASE_ERROR("FIT-01", "Database error.", HttpStatus.OK);
 
     private final String code;
     private final String message;
