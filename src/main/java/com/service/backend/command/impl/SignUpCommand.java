@@ -30,7 +30,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        var response = new FitnessResponseEntity<StatusDTO>();
+        final var response = new FitnessResponseEntity<StatusDTO>();
 
         response.setStatus(mapper.toStatusDTO(StatusEnum.SUCCESS));
 
