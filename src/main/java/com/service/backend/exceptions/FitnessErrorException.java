@@ -38,4 +38,9 @@ public class FitnessErrorException extends RuntimeException {
         this.httpError = null;
     }
 
+    public FitnessErrorException(String errorCode, String errorMessage, HttpStatus httpError) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+        this.httpError = httpError;
+    }
 }
