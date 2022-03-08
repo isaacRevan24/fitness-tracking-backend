@@ -6,7 +6,6 @@ import lombok.Getter;
 /**
  * @author Severiano Atencio
  */
-@Getter
 @AllArgsConstructor
 public enum GenericLogEnum {
 
@@ -14,4 +13,8 @@ public enum GenericLogEnum {
     FINISH_MESSAGE("End of ");
 
     private final String message;
+
+    public String getMessage() {
+        return message;
+    }
 }
