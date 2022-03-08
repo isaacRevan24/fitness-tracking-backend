@@ -20,13 +20,11 @@ import java.io.Serializable;
 @Setter
 @ToString
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class SignUpReqDTO implements Serializable {
 
     @Serial
     @JsonIgnore
-    private static final long serialVersionUID = 6254622590391243123L;
+    private static final long serialVersionUID = -6961415792593648680L;
 
     @NotBlank
     private String username;

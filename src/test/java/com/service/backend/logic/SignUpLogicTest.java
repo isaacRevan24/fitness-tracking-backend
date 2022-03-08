@@ -26,7 +26,7 @@ class SignUpLogicTest {
     @Test
     void itShouldSaveNewClientSuccessfully() {
         // Given
-        var request = new SignUpReqDTO("isaac123", "password134", 19);
+        var request =  SignUpReqDTO.builder().username("isaac123").password("password134").age(19).build();
 
         // When
         underTest.saveNewClient(request);
@@ -39,7 +39,7 @@ class SignUpLogicTest {
     @Test
     void itShouldFailBecauseExceptionOnSaving() {
         // Given
-        var request = new SignUpReqDTO("isaac123", "password134", 19);
+        var request =  SignUpReqDTO.builder().username("isaac123").password("password134").age(19).build();
 
         // Mock
         doThrow(new RuntimeException()).when(repository).save(any());

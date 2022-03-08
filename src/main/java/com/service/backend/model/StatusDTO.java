@@ -16,8 +16,6 @@ import java.io.Serializable;
 /**
  * @author Severiano Atencio
  */
-@Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,4 +32,28 @@ public class StatusDTO implements Serializable {
 
     @JsonIgnore
     private HttpStatus httpStatus;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
 }
