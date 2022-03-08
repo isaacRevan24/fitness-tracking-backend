@@ -8,6 +8,6 @@ import com.service.backend.model.SignUpReqDTO;
  */
 public interface SignUpLogic {
 
-    void SaveNewClient(SignUpReqDTO request) throws FitnessErrorException;
+    void saveNewClient(SignUpReqDTO request) throws FitnessErrorException;
 
 }

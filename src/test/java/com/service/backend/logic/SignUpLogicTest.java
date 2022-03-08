@@ -29,7 +29,7 @@ class SignUpLogicTest {
         var request = new SignUpReqDTO("isaac123", "password134", 19);
 
         // When
-        underTest.SaveNewClient(request);
+        underTest.saveNewClient(request);
 
         // Then
         verify(repository).save(any());
@@ -46,7 +46,7 @@ class SignUpLogicTest {
 
         // When
         // Then
-        assertThatThrownBy(() -> underTest.SaveNewClient(request)).isInstanceOf(FitnessErrorException.class);
+        assertThatThrownBy(() -> underTest.saveNewClient(request)).isInstanceOf(FitnessErrorException.class);
 
     }
 }
