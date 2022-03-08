@@ -13,9 +13,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface FitnessMapper {
 
-    @Mapping(source = "code", target = "code")
-    @Mapping(source = "message", target = "message")
-    @Mapping(source = "status", target = "httpStatus")
+    @Mapping(source = "status.code", target = "code")
+    @Mapping(source = "status.message", target = "message")
+    @Mapping(source = "status.status", target = "httpStatus")
     StatusDTO toStatusDTO(final StatusEnum status);
 
     @Mapping(source = "request.username", target = "username")
