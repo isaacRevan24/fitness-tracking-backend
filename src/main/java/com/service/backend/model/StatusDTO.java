@@ -3,6 +3,7 @@ package com.service.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +16,7 @@ import java.io.Serializable;
 /**
  * @author Severiano Atencio
  */
-@Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -32,4 +32,28 @@ public class StatusDTO implements Serializable {
 
     @JsonIgnore
     private HttpStatus httpStatus;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
 }

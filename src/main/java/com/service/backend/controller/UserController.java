@@ -3,7 +3,6 @@ package com.service.backend.controller;
 import com.service.backend.command.FitnessCommand;
 import com.service.backend.controller.entity.BaseResponseEntity;
 import com.service.backend.controller.entity.FitnessRequestEntity;
-import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.enums.StatusEnum;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
