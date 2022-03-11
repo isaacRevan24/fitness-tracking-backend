@@ -59,4 +59,31 @@ public class SignUpLogicImpl implements SignUpLogic {
 
     }
 
+    @Override
+    public void saveClientValues(SignUpReqDTO request) throws FitnessErrorException {
+
+        final var methodName = "SaveNewClient";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        final var clientValues = mapper.toClientValuesEntity(request);
+
+        try {
+
+        }catch (Exception exception) {
+
+            log.error(exception.getMessage());
+
+            throw new FitnessErrorException(
+                    exception.getMessage(),
+                    exception,
+                    DATABASE_ERROR.getCode(),
+                    DATABASE_ERROR.getMessage(),
+                    DATABASE_ERROR.getStatus()
+            );
+
+        }
+
+    }
+
 }

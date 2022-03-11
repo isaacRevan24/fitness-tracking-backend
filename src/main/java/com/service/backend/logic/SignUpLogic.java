@@ -11,4 +11,6 @@ public interface SignUpLogic {
 
     ClientEntity saveClient(SignUpReqDTO request) throws FitnessErrorException;
 
+    void saveClientValues(SignUpReqDTO request) throws FitnessErrorException;
+
 }
