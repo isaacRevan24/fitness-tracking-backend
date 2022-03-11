@@ -6,6 +6,7 @@ import com.service.backend.logic.SignUpLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.repository.ClientRepository;
+import com.service.backend.repository.ClientValuesRepository;
 import com.service.backend.repository.entities.ClientEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,10 @@ import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 public class SignUpLogicImpl implements SignUpLogic {
 
     @Autowired
-    private ClientRepository repository;
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private ClientValuesRepository clientValuesRepository;
 
     @Autowired
     private FitnessMapper mapper;
@@ -29,7 +33,7 @@ public class SignUpLogicImpl implements SignUpLogic {
     @Override
     public ClientEntity saveClient(SignUpReqDTO request) throws FitnessErrorException {
 
-        final var methodName = "SaveNewClient";
+        final var methodName = "saveClient";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
@@ -37,7 +41,7 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         try {
 
-            final var client = repository.save(clientEntity);
+            final var client = clientRepository.save(clientEntity);
 
             log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
@@ -62,7 +66,7 @@ public class SignUpLogicImpl implements SignUpLogic {
     @Override
     public void saveClientValues(SignUpReqDTO request) throws FitnessErrorException {
 
-        final var methodName = "SaveNewClient";
+        final var methodName = "saveClientValues";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
@@ -70,7 +74,11 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         try {
 
-        }catch (Exception exception) {
+            clientValuesRepository.save(clientValues);
+
+            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        } catch (Exception exception) {
 
             log.error(exception.getMessage());
 
