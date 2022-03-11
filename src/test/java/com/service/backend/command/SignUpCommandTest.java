@@ -38,7 +38,7 @@ class SignUpCommandTest {
         var request = new FitnessRequestEntity<SignUpReqDTO>();
 
         // Mock
-        doNothing().when(signUpLogic).saveNewClient(any());
+        doNothing().when(signUpLogic).saveClient(any());
 
         // When
         var response = underTest.execute(request);
@@ -55,7 +55,7 @@ class SignUpCommandTest {
 
         // Mock
         doThrow(new FitnessErrorException(DATABASE_ERROR.getCode(), DATABASE_ERROR.getMessage(),
-                DATABASE_ERROR.getStatus())).when(signUpLogic).saveNewClient(any());
+                DATABASE_ERROR.getStatus())).when(signUpLogic).saveClient(any());
 
         // When
         var response = underTest.execute(request);
@@ -71,7 +71,7 @@ class SignUpCommandTest {
         var request = new FitnessRequestEntity<SignUpReqDTO>();
 
         // Mock
-        doThrow(new RuntimeException()).when(signUpLogic).saveNewClient(any());
+        doThrow(new RuntimeException()).when(signUpLogic).saveClient(any());
 
         // When
         var response = underTest.execute(request);

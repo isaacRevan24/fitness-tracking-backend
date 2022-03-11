@@ -57,7 +57,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
         try {
 
-            signUpLogic.saveNewClient(request);
+            signUpLogic.saveClient(request);
 
             status = mapper.toStatusDTO(StatusEnum.SUCCESS);
 

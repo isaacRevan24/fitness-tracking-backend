@@ -26,7 +26,7 @@ public class SignUpLogicImpl implements SignUpLogic {
     private FitnessMapper mapper;
 
     @Override
-    public void saveNewClient(SignUpReqDTO request) throws FitnessErrorException {
+    public void saveClient(SignUpReqDTO request) throws FitnessErrorException {
 
         final var methodName = "SaveNewClient";
 
