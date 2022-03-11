@@ -4,6 +4,7 @@ import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
 import com.service.backend.enums.StatusEnum;
 import com.service.backend.repository.entities.ClientEntity;
+import com.service.backend.repository.entities.ClientValuesEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -22,5 +23,11 @@ public interface FitnessMapper {
     @Mapping(source = "request.password", target = "password")
     @Mapping(source = "request.age", target = "age")
     ClientEntity toClientEntity(final SignUpReqDTO request);
+
+    @Mapping(source = "request.height", target = "height")
+    @Mapping(source = "request.weight", target = "weight")
+    @Mapping(source = "request.heightMetric", target = "heightMetric")
+    @Mapping(source = "request.weightMetric", target = "weightMetric")
+    ClientValuesEntity toClientValuesEntity(final SignUpReqDTO request);
 
 }

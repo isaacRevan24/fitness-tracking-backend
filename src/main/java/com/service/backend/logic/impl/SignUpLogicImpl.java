@@ -6,6 +6,8 @@ import com.service.backend.logic.SignUpLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.repository.ClientRepository;
+import com.service.backend.repository.ClientValuesRepository;
+import com.service.backend.repository.entities.ClientEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,15 +22,18 @@ import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 public class SignUpLogicImpl implements SignUpLogic {
 
     @Autowired
-    private ClientRepository repository;
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private ClientValuesRepository clientValuesRepository;
 
     @Autowired
     private FitnessMapper mapper;
 
     @Override
-    public void saveNewClient(SignUpReqDTO request) throws FitnessErrorException {
+    public ClientEntity saveClient(SignUpReqDTO request) throws FitnessErrorException {
 
-        final var methodName = "SaveNewClient";
+        final var methodName = "saveClient";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
@@ -36,7 +41,11 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         try {
 
-            repository.save(clientEntity);
+            final var client = clientRepository.save(clientEntity);
+
+            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+            return client;
 
         } catch (Exception exception) {
 
@@ -52,7 +61,36 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         }
 
+    }
+
+    @Override
+    public void saveClientValues(SignUpReqDTO request) throws FitnessErrorException {
+
+        final var methodName = "saveClientValues";
+
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        final var clientValues = mapper.toClientValuesEntity(request);
+
+        try {
+
+            clientValuesRepository.save(clientValues);
+
+            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        } catch (Exception exception) {
+
+            log.error(exception.getMessage());
+
+            throw new FitnessErrorException(
+                    exception.getMessage(),
+                    exception,
+                    DATABASE_ERROR.getCode(),
+                    DATABASE_ERROR.getMessage(),
+                    DATABASE_ERROR.getStatus()
+            );
+
+        }
 
     }
 
