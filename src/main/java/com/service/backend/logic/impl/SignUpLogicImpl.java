@@ -6,6 +6,7 @@ import com.service.backend.logic.SignUpLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.repository.ClientRepository;
+import com.service.backend.repository.entities.ClientEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public class SignUpLogicImpl implements SignUpLogic {
     private FitnessMapper mapper;
 
     @Override
-    public void saveClient(SignUpReqDTO request) throws FitnessErrorException {
+    public ClientEntity saveClient(SignUpReqDTO request) throws FitnessErrorException {
 
         final var methodName = "SaveNewClient";
 
@@ -36,7 +37,11 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         try {
 
-            repository.save(clientEntity);
+            final var client = repository.save(clientEntity);
+
+            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+            return client;
 
         } catch (Exception exception) {
 
@@ -51,8 +56,6 @@ public class SignUpLogicImpl implements SignUpLogic {
             );
 
         }
-
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
     }
 

@@ -2,12 +2,13 @@ package com.service.backend.logic;
 
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.model.SignUpReqDTO;
+import com.service.backend.repository.entities.ClientEntity;
 
 /**
  * @author Severiano Atencio
  */
 public interface SignUpLogic {
 
-    void saveClient(SignUpReqDTO request) throws FitnessErrorException;
+    ClientEntity saveClient(SignUpReqDTO request) throws FitnessErrorException;
 
 }
