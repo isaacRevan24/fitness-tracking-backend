@@ -42,7 +42,7 @@ class SignUpControllerTest {
     @Test
     void itShouldMakeRequestSuccessfully() throws Exception {
         // Given
-        final var bodyResponse = "{ \"body\": { \"username\": \"aaaaa\", \"password\": \"aaaaa\", \"weightUnit\": \"kg\", \"weight\": 200.0, \"heightUnit\": \"mt\", \"height\": 180 } }";
+        final var bodyResponse = "{ \"body\": { \"username\": \"aaaaa\", \"password\": \"aaaaa\", \"weightMetric\": \"kg\", \"weight\": 200.1, \"heightMetric\": \"mt\", \"height\": 180 } }";
 
         // Mock
         var responseMock = new FitnessResponseEntity<StatusDTO>();
