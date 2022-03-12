@@ -17,7 +17,6 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
@@ -37,7 +36,10 @@ class SignUpLogicTest {
     @Test
     void itShouldSaveNewClientSuccessfully() {
         // Given
-        var request = SignUpReqDTO.builder().username("isaac123").password("password134").age(19).build();
+        var request = new SignUpReqDTO();
+        request.setAge(19);
+        request.setUsername("isaac123");
+        request.setPassword("abc123");
 
         // Mock
         var mockResponse = new ClientEntity();
@@ -53,7 +55,10 @@ class SignUpLogicTest {
     @Test
     void itShouldFailBecauseExceptionOnSaving() {
         // Given
-        var request = SignUpReqDTO.builder().username("isaac123").password("password134").age(19).build();
+        var request = new SignUpReqDTO();
+        request.setAge(19);
+        request.setUsername("isaac123");
+        request.setPassword("abc123");
 
         // Mock
         doThrow(new RuntimeException()).when(clientRepository).save(any());
@@ -67,20 +72,46 @@ class SignUpLogicTest {
     @Test
     void itShouldSuccessfullySaveClientValues() {
         // Given
-        var request = SignUpReqDTO.builder().height(1.85).heightMetric("mt")
-                .weightMetric("kg").weight(110.0).username("isaac123").password("password134")
-                .age(19).build();
+        var request = new SignUpReqDTO();
+        request.setAge(19);
+        request.setUsername("isaac123");
+        request.setPassword("abc123");
+        request.setHeight(1.85);
+        request.setWeight(112.0);
+        request.setHeightMetric("mt");
+        request.setWeightMetric("kg");
+        var uuid = UUID.randomUUID();
 
         // Mock
         var mockResponse = new ClientValuesEntity();
         doReturn(mockResponse).when(clientValuesRepository).save(any());
 
         // When
-        var uuid = UUID.randomUUID();
         underTest.saveClientValues(request, uuid);
 
         // Then
         verify(clientValuesRepository).save(any());
 
+    }
+
+    @Test
+    void itShouldFailBecauseException() {
+        // Given
+        var request = new SignUpReqDTO();
+        request.setAge(19);
+        request.setUsername("isaac123");
+        request.setPassword("abc123");
+        request.setHeight(1.85);
+        request.setWeight(112.0);
+        request.setHeightMetric("mt");
+        request.setWeightMetric("kg");
+        var uuid = UUID.randomUUID();
+
+        // Mock
+        doThrow(new RuntimeException()).when(clientValuesRepository).save(any());
+
+        // When
+        // Then
+        assertThatThrownBy(() -> underTest.saveClientValues(request, uuid)).isInstanceOf(FitnessErrorException.class);
     }
 }

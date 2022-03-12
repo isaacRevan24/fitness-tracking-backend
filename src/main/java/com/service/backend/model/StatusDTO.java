@@ -3,10 +3,7 @@ package com.service.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
@@ -16,7 +13,6 @@ import java.io.Serializable;
 /**
  * @author Severiano Atencio
  */
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
