@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 
 /**
@@ -64,13 +66,13 @@ public class SignUpLogicImpl implements SignUpLogic {
     }
 
     @Override
-    public void saveClientValues(SignUpReqDTO request) throws FitnessErrorException {
+    public void saveClientValues(SignUpReqDTO request, UUID id) throws FitnessErrorException {
 
         final var methodName = "saveClientValues";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        final var clientValues = mapper.toClientValuesEntity(request);
+        final var clientValues = mapper.toClientValuesEntity(request, id);
 
         try {
 

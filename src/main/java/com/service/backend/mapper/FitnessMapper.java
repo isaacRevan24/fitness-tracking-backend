@@ -8,6 +8,8 @@ import com.service.backend.repository.entities.ClientValuesEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.UUID;
+
 /**
  * @author Severiano Atencio
  */
@@ -24,10 +26,12 @@ public interface FitnessMapper {
     @Mapping(source = "request.age", target = "age")
     ClientEntity toClientEntity(final SignUpReqDTO request);
 
+
     @Mapping(source = "request.height", target = "height")
     @Mapping(source = "request.weight", target = "weight")
     @Mapping(source = "request.heightMetric", target = "heightMetric")
     @Mapping(source = "request.weightMetric", target = "weightMetric")
-    ClientValuesEntity toClientValuesEntity(final SignUpReqDTO request);
+    @Mapping(source = "id", target = "id")
+    ClientValuesEntity toClientValuesEntity(final SignUpReqDTO request, final UUID id);
 
 }

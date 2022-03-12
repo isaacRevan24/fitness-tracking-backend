@@ -8,6 +8,7 @@ import com.service.backend.logic.SignUpLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
+import com.service.backend.repository.entities.ClientEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 
 @SpringBootTest(classes = {FitnessTrackingApplication.class},
@@ -38,7 +39,8 @@ class SignUpCommandTest {
         var request = new FitnessRequestEntity<SignUpReqDTO>();
 
         // Mock
-        doNothing().when(signUpLogic).saveClient(any());
+        var mockResponse = new ClientEntity();
+        doReturn(mockResponse).when(signUpLogic).saveClient(any());
 
         // When
         var response = underTest.execute(request);
