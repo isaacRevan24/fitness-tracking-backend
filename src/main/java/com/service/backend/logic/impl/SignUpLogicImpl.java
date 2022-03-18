@@ -8,6 +8,7 @@ import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.repository.ClientRepository;
 import com.service.backend.repository.ClientValuesRepository;
 import com.service.backend.repository.entities.ClientEntity;
+import com.service.backend.util.crypto.EncryptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
+import static com.service.backend.enums.StatusEnum.ENCRYPTION_EXCEPTION;
 
 /**
  * @author Severiano Atencio
@@ -28,6 +30,9 @@ public class SignUpLogicImpl implements SignUpLogic {
 
     @Autowired
     private ClientValuesRepository clientValuesRepository;
+
+    @Autowired
+    private EncryptionUtil encryptionUtil;
 
     @Autowired
     private FitnessMapper mapper;
@@ -94,6 +99,38 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         }
 
+    }
+
+    @Override
+    public String encryptPassword(String password) throws FitnessErrorException {
+
+        final var methodName = "encryptPassword";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        String encryptedPassword;
+
+        try {
+
+            encryptedPassword = encryptionUtil.encryptPassword(password);
+
+        }catch (Exception exception) {
+
+            log.error(exception.getMessage());
+
+            throw new FitnessErrorException(
+                    exception.getMessage(),
+                    exception,
+                    ENCRYPTION_EXCEPTION.getCode(),
+                    ENCRYPTION_EXCEPTION.getMessage(),
+                    ENCRYPTION_EXCEPTION.getStatus()
+            );
+
+        }
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        return encryptedPassword;
     }
 
 }

@@ -15,4 +15,6 @@ public interface SignUpLogic {
 
     void saveClientValues(SignUpReqDTO request, UUID id) throws FitnessErrorException;
 
+    String encryptPassword(String password) throws FitnessErrorException;
+
 }
