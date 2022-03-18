@@ -14,7 +14,7 @@ class EncryptionUtilTest {
     private EncryptionUtil underTest;
 
     @Test
-    void itShouldGenerateHashedPassword() {
+    void itShouldGenerateHashedPassword() throws Exception {
         // Given
         final var password = "Password123*";
 

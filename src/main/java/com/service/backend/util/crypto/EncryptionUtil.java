@@ -7,8 +7,8 @@ import com.service.backend.exceptions.FitnessErrorException;
  */
 public interface EncryptionUtil {
 
-    String encryptPassword(String password) throws FitnessErrorException;
+    String encryptPassword(String password) throws Exception;
 
-    boolean validatePassword(String password, String hash) throws FitnessErrorException;
+    boolean validatePassword(String password, String hash) throws Exception;
 
 }

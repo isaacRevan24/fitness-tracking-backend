@@ -19,7 +19,7 @@ public class EncryptionUtilImpl implements EncryptionUtil {
     private static final int ITERATIONS = 12;
 
     @Override
-    public String encryptPassword(String password) throws FitnessErrorException {
+    public String encryptPassword(String password) throws Exception {
 
         final var methodName = "encryptPassword";
 
@@ -35,7 +35,7 @@ public class EncryptionUtilImpl implements EncryptionUtil {
     }
 
     @Override
-    public boolean validatePassword(String password, String hash) throws FitnessErrorException {
+    public boolean validatePassword(String password, String hash) throws Exception {
         return false;
     }
 
