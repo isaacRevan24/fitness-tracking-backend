@@ -7,11 +7,13 @@ import com.service.backend.repository.ClientRepository;
 import com.service.backend.repository.ClientValuesRepository;
 import com.service.backend.repository.entities.ClientEntity;
 import com.service.backend.repository.entities.ClientValuesEntity;
+import com.service.backend.util.crypto.EncryptionUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Base64;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +23,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
-@SpringBootTest(classes = {FitnessTrackingApplication.class}, properties = "spring.main.allow-bean-definition-overriding=true")
+@SpringBootTest(classes = {FitnessTrackingApplication.class},
+        properties = "spring.main.allow-bean-definition-overriding=true")
 class SignUpLogicTest {
 
     @MockBean
@@ -32,6 +35,9 @@ class SignUpLogicTest {
 
     @Autowired
     private SignUpLogic underTest;
+
+    @MockBean
+    private EncryptionUtil encryptionUtil;
 
     @Test
     void itShouldSaveNewClientSuccessfully() {
@@ -113,5 +119,36 @@ class SignUpLogicTest {
         // When
         // Then
         assertThatThrownBy(() -> underTest.saveClientValues(request, uuid)).isInstanceOf(FitnessErrorException.class);
+    }
+
+    @Test
+    void itShouldSuccessfullyEncryptPasswords() throws Exception {
+        // Given
+        final var password = "password123";
+
+        // Mock
+        final var encodedString = Base64.getEncoder().encodeToString(password.getBytes());
+        doReturn(encodedString).when(encryptionUtil).encryptPassword(any());
+
+        // When
+        var response = underTest.encryptPassword(password);
+
+        // Then
+        assertThat(response).isBase64();
+
+    }
+    @Test
+    void itShouldFailEncryptPassword() throws Exception {
+        // Given
+        final var password = "password123";
+
+        // Mock
+        doThrow(new RuntimeException()).when(encryptionUtil).encryptPassword(any());
+
+        // When
+        // Then
+        assertThatThrownBy(() -> underTest.encryptPassword(password))
+                .isInstanceOf(FitnessErrorException.class);
+
     }
 }
