@@ -57,6 +57,8 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
         try {
 
+            request.setPassword(signUpLogic.encryptPassword(request.getPassword()));
+
             signUpLogic.saveClient(request);
 
             status = mapper.toStatusDTO(StatusEnum.SUCCESS);
