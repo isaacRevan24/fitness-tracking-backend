@@ -39,7 +39,7 @@ class SignUpCommandTest {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
         var requestBody = new SignUpReqDTO();
-        requestBody.setPassword("password123");
+        requestBody.setPassword("Password123");
         request.setBody(requestBody);
 
         // Mock
@@ -59,7 +59,7 @@ class SignUpCommandTest {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
         var requestBody = new SignUpReqDTO();
-        requestBody.setPassword("password123");
+        requestBody.setPassword("Password123");
         request.setBody(requestBody);
 
         // Mock
@@ -79,7 +79,7 @@ class SignUpCommandTest {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
         var requestBody = new SignUpReqDTO();
-        requestBody.setPassword("password123");
+        requestBody.setPassword("Password123");
         request.setBody(requestBody);
 
         // Mock
@@ -93,4 +93,22 @@ class SignUpCommandTest {
 
     }
 
+    @Test
+    void itShouldFailBecauseInvalidPasswordFormat() {
+        // Given
+        var request = new FitnessRequestEntity<SignUpReqDTO>();
+        var requestBody = new SignUpReqDTO();
+        requestBody.setPassword("password123*");
+        request.setBody(requestBody);
+
+        // Mock
+        final var encodedString = Base64.getEncoder().encodeToString(requestBody.getPassword().getBytes());
+        doReturn(encodedString).when(signUpLogic).encryptPassword(any());
+
+        // When
+        var response = underTest.execute(request);
+
+        // Then
+        assertThat(response.getStatus().getCode()).isEqualTo(StatusEnum.INVALID_PASSWORD_FORMAT.getCode());
+    }
 }
