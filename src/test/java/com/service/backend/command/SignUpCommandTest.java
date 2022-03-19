@@ -8,7 +8,6 @@ import com.service.backend.logic.SignUpLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
-import com.service.backend.repository.entities.ClientEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,8 +44,6 @@ class SignUpCommandTest {
 
         // Mock
         final var encodedString = Base64.getEncoder().encodeToString(requestBody.getPassword().getBytes());
-        var mockResponse = new ClientEntity();
-        doReturn(mockResponse).when(signUpLogic).saveClient(any());
         doReturn(encodedString).when(signUpLogic).encryptPassword(any());
 
         // When
@@ -67,7 +64,7 @@ class SignUpCommandTest {
 
         // Mock
         doThrow(new FitnessErrorException(DATABASE_ERROR.getCode(), DATABASE_ERROR.getMessage(),
-                DATABASE_ERROR.getStatus())).when(signUpLogic).saveClient(any());
+                DATABASE_ERROR.getStatus())).when(signUpLogic).signUp(any());
 
         // When
         var response = underTest.execute(request);
@@ -86,13 +83,13 @@ class SignUpCommandTest {
         request.setBody(requestBody);
 
         // Mock
-        doThrow(new RuntimeException()).when(signUpLogic).saveClient(any());
+        doThrow(new RuntimeException()).when(signUpLogic).signUp(any());
 
         // When
         var response = underTest.execute(request);
 
         // Then
-        assertThat(response.getStatus().getCode()).isEqualTo(StatusEnum.INTERNAL_ERROR.getCode());
+        assertThat(response.getStatus().getCode()).isEqualTo(DATABASE_ERROR.getCode());
 
     }
 
