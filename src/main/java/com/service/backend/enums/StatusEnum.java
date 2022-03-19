@@ -9,9 +9,10 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum StatusEnum {
 
-    SUCCESS("FIT-00", "Success", HttpStatus.OK),
+    SUCCESS("FIT-00", "Success.", HttpStatus.OK),
     DATABASE_ERROR("FIT-01", "Database error.", HttpStatus.INTERNAL_SERVER_ERROR),
-    INTERNAL_ERROR("FIT-02", "Internal error.", HttpStatus.INTERNAL_SERVER_ERROR);
+    INTERNAL_ERROR("FIT-02", "Internal error.", HttpStatus.INTERNAL_SERVER_ERROR),
+    ENCRYPTION_EXCEPTION("FIT-03", "Encryption error.", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String code;
     private final String message;

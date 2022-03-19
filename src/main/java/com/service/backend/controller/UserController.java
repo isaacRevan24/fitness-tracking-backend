@@ -50,6 +50,8 @@ public class UserController {
 
         var response = signUpCommand.execute(request);
 
+        response.setBody(null);
+
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
 }

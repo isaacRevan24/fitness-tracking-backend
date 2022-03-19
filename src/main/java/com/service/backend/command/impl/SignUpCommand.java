@@ -57,7 +57,9 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
         try {
 
-            signUpLogic.saveClient(request);
+            request.setPassword(signUpLogic.encryptPassword(request.getPassword()));
+
+            signUpLogic.signUp(request);
 
             status = mapper.toStatusDTO(StatusEnum.SUCCESS);
 
@@ -76,7 +78,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
         } catch (Exception exception) {
 
-            status = mapper.toStatusDTO(StatusEnum.INTERNAL_ERROR);
+            status = mapper.toStatusDTO(StatusEnum.DATABASE_ERROR);
 
             log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
