@@ -12,7 +12,13 @@ import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.util.Base64;
+import java.util.regex.Pattern;
+
+import static com.service.backend.enums.StatusEnum.INVALID_PASSWORD_FORMAT;
 
 /**
  * @author Severiano Atencio
@@ -27,6 +33,9 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
     @Autowired
     private SignUpLogic signUpLogic;
 
+    @Value( "${password.regex}" )
+    private String passwordRegex;
+
     @Override
     public FitnessResponseEntity<StatusDTO> execute(FitnessRequestEntity<SignUpReqDTO> request) throws FitnessErrorException {
 
@@ -35,6 +44,18 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
         final var response = new FitnessResponseEntity<StatusDTO>();
+
+        final var passwordValidation = passwordValidation(request.getBody().getPassword());
+
+        if (passwordValidation != null) {
+
+            response.setStatus(passwordValidation);
+
+            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+            return response;
+
+        }
 
         var logicResponse = logicExecution(request.getBody());
 
@@ -45,6 +66,33 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
         return response;
+    }
+
+    private StatusDTO passwordValidation(String password) {
+
+        final var methodName = "execute";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        final var decodedBytes = Base64.getDecoder().decode(passwordRegex);
+
+        final var decodedString = new String(decodedBytes);
+
+        final var pattern = Pattern.compile(decodedString);
+
+        if (!pattern.matcher(password).matches()) {
+
+            var status = mapper.toStatusDTO(INVALID_PASSWORD_FORMAT);
+
+            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+            return status;
+        }
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        return null;
+
     }
 
     private StatusDTO logicExecution(SignUpReqDTO request) {

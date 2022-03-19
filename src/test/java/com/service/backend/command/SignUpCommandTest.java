@@ -39,7 +39,7 @@ class SignUpCommandTest {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
         var requestBody = new SignUpReqDTO();
-        requestBody.setPassword("password123");
+        requestBody.setPassword("Password123");
         request.setBody(requestBody);
 
         // Mock
@@ -59,7 +59,7 @@ class SignUpCommandTest {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
         var requestBody = new SignUpReqDTO();
-        requestBody.setPassword("password123");
+        requestBody.setPassword("Password123");
         request.setBody(requestBody);
 
         // Mock
@@ -79,7 +79,7 @@ class SignUpCommandTest {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
         var requestBody = new SignUpReqDTO();
-        requestBody.setPassword("password123");
+        requestBody.setPassword("Password123");
         request.setBody(requestBody);
 
         // Mock
