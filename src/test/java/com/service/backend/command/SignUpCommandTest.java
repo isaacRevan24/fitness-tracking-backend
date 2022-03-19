@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Base64;
+
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -37,10 +39,15 @@ class SignUpCommandTest {
     void itShouldExecuteSuccessfully() {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
+        var requestBody = new SignUpReqDTO();
+        requestBody.setPassword("password123");
+        request.setBody(requestBody);
 
         // Mock
+        final var encodedString = Base64.getEncoder().encodeToString(requestBody.getPassword().getBytes());
         var mockResponse = new ClientEntity();
         doReturn(mockResponse).when(signUpLogic).saveClient(any());
+        doReturn(encodedString).when(signUpLogic).encryptPassword(any());
 
         // When
         var response = underTest.execute(request);
@@ -54,6 +61,9 @@ class SignUpCommandTest {
     void itShouldFailInLogicBecauseDatabaseError() {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
+        var requestBody = new SignUpReqDTO();
+        requestBody.setPassword("password123");
+        request.setBody(requestBody);
 
         // Mock
         doThrow(new FitnessErrorException(DATABASE_ERROR.getCode(), DATABASE_ERROR.getMessage(),
@@ -71,6 +81,9 @@ class SignUpCommandTest {
     void itShouldFailBecauseException() {
         // Given
         var request = new FitnessRequestEntity<SignUpReqDTO>();
+        var requestBody = new SignUpReqDTO();
+        requestBody.setPassword("password123");
+        request.setBody(requestBody);
 
         // Mock
         doThrow(new RuntimeException()).when(signUpLogic).saveClient(any());
@@ -82,4 +95,5 @@ class SignUpCommandTest {
         assertThat(response.getStatus().getCode()).isEqualTo(StatusEnum.INTERNAL_ERROR.getCode());
 
     }
+
 }
