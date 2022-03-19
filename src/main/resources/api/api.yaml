@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: Open api swagger for fitness tracker
+  description: Api deffinition for fitness tracker backend
+  version: 1.0.0
+servers:
+  - url:  /v1/fitness
+    description: Base path
+
+paths:
+  
+  /user/sig-up:
+    summary: User signup in fitness tracker database.
+    description: Saves user information in fitness tracker database.
+    post:
+      summary: Save user in database.
+      tags:
+        - Signup
+      operationId: signUp
+      requestBody:
+        description: request entity of signup
+        content:
+          "*/*":
+            schema:
+              type: object
+              $ref: '#/components/schemas/SignUpRequest'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SignUpResponse'
+        "400":
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SignUpResponse'
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SignUpResponse'
+
+components:
+  schemas:
+
+    Status:
+      description: Contiene la descripción del status del response.
+      type: object
+      properties:
+        code:
+          description: Code of message
+          type: string
+          example: FIT-000
+        message:
+          description: success
+          type: string
+          example: SignUp success
+
+    SignUpRequest:
+      description: SignUpRequest body
+      type: object
+      properties:
+        body:
+          description: Body
+          type: object
+          $ref: '#/components/schemas/SignUpRequestBody'
+      required:
+        - body
+    
+    SignUpRequestBody:
+      description: Sign up request body data
+      type: object
+      properties:
+        username:
+          description: Username of the client
+          type: string
+          example: Aizack
+        password:
+          description: password with at least 1 capital letter and 1 number
+          type: string
+          example: Password123
+        age:
+          description: Age of the user
+          type: integer
+          example: 23
+        weightMetric:
+          description: specific weight metric
+          type: string
+          enum: 
+            - kg
+            - lb
+        weight:
+          description: specific initial weight of the user
+          type: number
+          example: 109.9
+        heightMetric:
+          description: specific height metric
+          type: string
+          enum:
+            - mt
+            - ft
+        height:
+          description: specific initial height of the user
+          type: number
+          example: 1.87
+      required:
+        - username
+        - password
+        - weightMetric
+        - weight
+        - height
+        - heightMetric
+    
+    SignUpResponse:
+      description: response of service
+      type: object
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+
+
+
+        
