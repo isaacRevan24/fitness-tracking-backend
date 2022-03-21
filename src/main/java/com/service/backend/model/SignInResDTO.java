@@ -20,4 +20,19 @@ public class SignInResDTO implements Serializable {
 
     private String userId;
 
+    public SignInResDTO() {
+    }
+
+    public SignInResDTO(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
 }
