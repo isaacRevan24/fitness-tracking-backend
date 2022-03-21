@@ -3,8 +3,11 @@ package com.service.backend.controller;
 import com.service.backend.command.FitnessCommand;
 import com.service.backend.controller.entity.BaseResponseEntity;
 import com.service.backend.controller.entity.FitnessRequestEntity;
+import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.enums.StatusEnum;
 import com.service.backend.mapper.FitnessMapper;
+import com.service.backend.model.SignInReqDTO;
+import com.service.backend.model.SignInResDTO;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +54,17 @@ public class UserController {
         var response = signUpCommand.execute(request);
 
         response.setBody(null);
+
+        return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
+    }
+
+    @PostMapping(path = "/sign-in")
+    public ResponseEntity<FitnessResponseEntity<SignInResDTO>> signIn(@Valid @RequestBody FitnessRequestEntity<SignInReqDTO> body) {
+
+        var response = new FitnessResponseEntity<SignInResDTO>();
+        var status = mapper.toStatusDTO(StatusEnum.SUCCESS);
+        response.setStatus(status);
+        response.setBody(new SignInResDTO("864e6697-e7a8-4363-b811-30d3ab560336"));
 
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
