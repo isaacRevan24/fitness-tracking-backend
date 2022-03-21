@@ -42,7 +42,7 @@ class SignUpControllerTest {
     @Test
     void itShouldMakeRequestSuccessfully() throws Exception {
         // Given
-        final var bodyResponse = "{ \"body\": { \"username\": \"aaaaa\", \"password\": \"aaaaa\", \"weightMetric\": \"kg\", \"weight\": 200.1, \"heightMetric\": \"mt\", \"height\": 180 } }";
+        final var bodyRequest = "{ \"body\": { \"username\": \"aaaaa\", \"password\": \"aaaaa\", \"weightMetric\": \"kg\", \"weight\": 200.1, \"heightMetric\": \"mt\", \"height\": 180 } }";
 
         // Mock
         var responseMock = new FitnessResponseEntity<StatusDTO>();
@@ -56,7 +56,7 @@ class SignUpControllerTest {
         // Then
         mockMvc.perform(post("/user/sign-up")
                         .header("Content-Type", "application/json")
-                        .content(bodyResponse)
+                        .content(bodyRequest)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
