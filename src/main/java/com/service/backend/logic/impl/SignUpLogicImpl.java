@@ -61,7 +61,7 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         }
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return encryptedPassword;
     }
@@ -80,7 +80,7 @@ public class SignUpLogicImpl implements SignUpLogic {
 
         clientValuesRepository.save(mapper.toClientValuesEntity(request, client.getId()));
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
     }
 
 }

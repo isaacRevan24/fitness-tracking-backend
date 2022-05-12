@@ -29,7 +29,7 @@ public class EncryptionUtilImpl implements EncryptionUtil {
 
         var encodedHash = Base64.getEncoder().encodeToString(hash.getBytes());
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return encodedHash;
     }
@@ -45,7 +45,7 @@ public class EncryptionUtilImpl implements EncryptionUtil {
 
         final var checkPassword = BCrypt.checkpw(password, decodedHash);
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return checkPassword;
     }

@@ -52,7 +52,7 @@ public class SignInLogicImpl implements SignInLogic {
 
         }
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return password;
     }
@@ -82,7 +82,7 @@ public class SignInLogicImpl implements SignInLogic {
 
         }
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return validation;
     }
