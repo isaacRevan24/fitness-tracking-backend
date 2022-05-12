@@ -2,6 +2,7 @@ package com.service.backend.repository;
 
 import com.service.backend.repository.entities.ClientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -9,4 +10,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
+
+    @Query(value = "SELECT password FROM client WHERE username=?1", nativeQuery = true)
+    String findUserByUserName(String userName);
+
 }
