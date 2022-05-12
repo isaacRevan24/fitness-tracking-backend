@@ -36,7 +36,18 @@ public class EncryptionUtilImpl implements EncryptionUtil {
 
     @Override
     public boolean validatePassword(String password, String hash) throws Exception {
-        return false;
+
+        final var methodName = "validatePassword";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        final var decodedHash = new String(Base64.getDecoder().decode(hash));
+
+        final var checkPassword = BCrypt.checkpw(password, decodedHash);
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        return checkPassword;
     }
 
 }
