@@ -54,4 +54,5 @@ public class SignInLogicTest {
                 .isInstanceOf(FitnessErrorException.class);
 
     }
+
 }
