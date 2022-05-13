@@ -35,11 +35,15 @@ public class UserController {
     @Qualifier("SignUpCommand")
     private FitnessCommand<SignUpReqDTO, StatusDTO> signUpCommand;
 
+    @Autowired
+    @Qualifier("SignInCommand")
+    private FitnessCommand<SignInReqDTO, SignInResDTO> signInCommand;
+
     @GetMapping(path = "/health-check")
     public ResponseEntity<BaseResponseEntity> healthCheck() {
 
-        var status = mapper.toStatusDTO(StatusEnum.SUCCESS);
-        var response = new BaseResponseEntity(status);
+        final var status = mapper.toStatusDTO(StatusEnum.SUCCESS);
+        final var response = new BaseResponseEntity(status);
 
         return ResponseEntity.status(status.getHttpStatus()).body(response);
     }
@@ -47,11 +51,11 @@ public class UserController {
     @PostMapping(path = "/sign-up")
     public ResponseEntity<BaseResponseEntity> signUp(@Valid @RequestBody FitnessRequestEntity<SignUpReqDTO> body) {
 
-        var request = new FitnessRequestEntity<SignUpReqDTO>();
+        final var request = new FitnessRequestEntity<SignUpReqDTO>();
 
         request.setBody(body.getBody());
 
-        var response = signUpCommand.execute(request);
+        final var response = signUpCommand.execute(request);
 
         response.setBody(null);
 
@@ -61,10 +65,11 @@ public class UserController {
     @PostMapping(path = "/sign-in")
     public ResponseEntity<FitnessResponseEntity<SignInResDTO>> signIn(@Valid @RequestBody FitnessRequestEntity<SignInReqDTO> body) {
 
-        var response = new FitnessResponseEntity<SignInResDTO>();
-        var status = mapper.toStatusDTO(StatusEnum.SUCCESS);
-        response.setStatus(status);
-        response.setBody(new SignInResDTO("864e6697-e7a8-4363-b811-30d3ab560336"));
+        final var request = new FitnessRequestEntity<SignInReqDTO>();
+
+        request.setBody(body.getBody());
+
+        final var response = signInCommand.execute(request);
 
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }

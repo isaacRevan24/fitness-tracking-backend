@@ -25,4 +25,17 @@ class EncryptionUtilTest {
         assertThat(response).isBase64();
 
     }
+
+    @Test
+    void itShouldValidateHashPassword() throws Exception {
+        // Given
+        final var password = "password123";
+        final var hash = "JDJhJDEyJG1aT1RVQkxQVWIwN0xVb1RjZ1A3NHV6RGxDNjRvSUoublFPbWRaVDVhWmVEUVFvMEVtdFo2";
+
+        // When
+        final var response = underTest.validatePassword(password, hash);
+
+        // Then
+        assertThat(response).isTrue();
+    }
 }

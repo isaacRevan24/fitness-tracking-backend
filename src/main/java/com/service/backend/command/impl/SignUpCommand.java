@@ -51,7 +51,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
             response.setStatus(passwordValidation);
 
-            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
             return response;
 
@@ -63,7 +63,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
         response.setBody(logicResponse);
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return response;
     }
@@ -84,12 +84,12 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
             var status = mapper.toStatusDTO(INVALID_PASSWORD_FORMAT);
 
-            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
             return status;
         }
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return null;
 
@@ -111,7 +111,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
             status = mapper.toStatusDTO(StatusEnum.SUCCESS);
 
-            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
             return status;
 
@@ -120,7 +120,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
             status = new StatusDTO(fitnessException.getErrorCode(), fitnessException.getErrorMessage(),
                     fitnessException.getHttpError());
 
-            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
             return status;
 
@@ -128,7 +128,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
             status = mapper.toStatusDTO(StatusEnum.DATABASE_ERROR);
 
-            log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
             return status;
 
