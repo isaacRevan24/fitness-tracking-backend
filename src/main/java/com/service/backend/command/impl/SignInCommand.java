@@ -4,13 +4,11 @@ import com.service.backend.command.FitnessCommand;
 import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.enums.GenericLogEnum;
-import com.service.backend.enums.StatusEnum;
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.SignInLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignInReqDTO;
 import com.service.backend.model.SignInResDTO;
-import com.service.backend.model.StatusDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -88,7 +86,7 @@ public class SignInCommand implements FitnessCommand<SignInReqDTO, SignInResDTO>
 
         try {
             password = logic.getPassword(username);
-        }catch (Exception exception) {
+        } catch (Exception exception) {
 
             log.error("Message: " + exception.getMessage());
             log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
@@ -113,7 +111,7 @@ public class SignInCommand implements FitnessCommand<SignInReqDTO, SignInResDTO>
 
         try {
             valid = logic.validatePassword(password, hash);
-        }catch (Exception exception) {
+        } catch (Exception exception) {
 
             log.error("Message: " + exception.getMessage());
             log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
