@@ -13,7 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.service.backend.enums.StatusEnum.*;
+import static com.service.backend.enums.StatusEnum.ERROR_GETTING_PASSWORD;
+import static com.service.backend.enums.StatusEnum.ERROR_VALIDATION_PASSWORD;
+import static com.service.backend.enums.StatusEnum.SIGN_IN_ERROR;
+import static com.service.backend.enums.StatusEnum.SUCCESS;
 
 /**
  * @author Severiano Atencio

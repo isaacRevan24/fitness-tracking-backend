@@ -1,7 +1,6 @@
 package com.service.backend.util.crypto.impl;
 
 import com.service.backend.enums.GenericLogEnum;
-import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.util.crypto.EncryptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCrypt;
