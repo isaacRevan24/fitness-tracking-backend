@@ -9,6 +9,7 @@ import com.service.backend.logic.SignInLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignInReqDTO;
 import com.service.backend.model.SignInResDTO;
+import com.service.backend.repository.entities.ClientEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -85,10 +86,10 @@ public class SignInCommand implements FitnessCommand<SignInReqDTO, SignInResDTO>
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        String password;
+        ClientEntity client;
 
         try {
-            password = logic.getPassword(username);
+            client = logic.getUser(username);
         } catch (Exception exception) {
 
             log.error("Message: " + exception.getMessage());
@@ -100,7 +101,7 @@ public class SignInCommand implements FitnessCommand<SignInReqDTO, SignInResDTO>
 
         log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
-        return password;
+        return client.getPassword();
 
     }
 
@@ -123,7 +124,7 @@ public class SignInCommand implements FitnessCommand<SignInReqDTO, SignInResDTO>
 
         }
 
-        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return valid;
 

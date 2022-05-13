@@ -3,6 +3,7 @@ package com.service.backend.logic;
 import com.service.backend.FitnessTrackingApplication;
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.repository.ClientRepository;
+import com.service.backend.repository.entities.ClientEntity;
 import com.service.backend.util.crypto.EncryptionUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,15 @@ public class SignInLogicTest {
         final var username = "aaaaa";
 
         // Mock
-        final var mockPassword = "password123";
-        doReturn(mockPassword).when(repository).findUserByUserName(any());
+        final var mockUser = new ClientEntity();
+        mockUser.setPassword("password123");
+        doReturn(mockUser).when(repository).findUserByUserName(any());
 
         // When
-        final var password = underTest.getPassword(username);
+        final var password = underTest.getUser(username);
 
         // Then
-        assertThat(password).isEqualTo(mockPassword);
+        assertThat(password.getPassword()).isEqualTo(mockUser.getPassword());
     }
 
     @Test
@@ -55,7 +57,7 @@ public class SignInLogicTest {
 
         // When
         // Then
-        assertThatThrownBy(() -> underTest.getPassword(username))
+        assertThatThrownBy(() -> underTest.getUser(username))
                 .isInstanceOf(FitnessErrorException.class);
 
     }

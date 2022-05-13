@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends JpaRepository<ClientEntity, String> {
 
-    @Query(value = "SELECT password FROM client WHERE username=?1", nativeQuery = true)
-    String findUserByUserName(String userName);
+    @Query(value = "SELECT * FROM client WHERE username=?1", nativeQuery = true)
+    ClientEntity findUserByUserName(String userName);
 
 }

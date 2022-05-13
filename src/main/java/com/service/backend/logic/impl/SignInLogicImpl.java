@@ -4,6 +4,7 @@ import com.service.backend.enums.GenericLogEnum;
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.SignInLogic;
 import com.service.backend.repository.ClientRepository;
+import com.service.backend.repository.entities.ClientEntity;
 import com.service.backend.util.crypto.EncryptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +27,17 @@ public class SignInLogicImpl implements SignInLogic {
     private EncryptionUtil encryptionUtil;
 
     @Override
-    public String getPassword(String username) throws FitnessErrorException {
+    public ClientEntity getUser(String username) throws FitnessErrorException {
 
         final var methodName = "getPassword";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        String password;
+        ClientEntity client;
 
         try {
 
-            password = repository.findUserByUserName(username);
+            client = repository.findUserByUserName(username);
 
         } catch (Exception exception) {
 
@@ -54,7 +55,7 @@ public class SignInLogicImpl implements SignInLogic {
 
         log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
-        return password;
+        return client;
     }
 
     @Override
