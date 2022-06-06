@@ -17,7 +17,7 @@ import static com.service.backend.enums.StatusEnum.ENCRYPTION_EXCEPTION;
  * @author Severiano Atencio
  */
 @Slf4j
-@Component("SignUpLogicImpl")
+@Component("AddGoalsLogicImpl")
 public class AddGoalsLogicImpl implements AddGoalsLogic {
 
     @Autowired
