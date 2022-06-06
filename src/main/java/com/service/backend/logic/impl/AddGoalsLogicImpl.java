@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import static com.service.backend.enums.StatusEnum.ENCRYPTION_EXCEPTION;
+import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 
 /**
  * @author Severiano Atencio
@@ -46,9 +46,9 @@ public class AddGoalsLogicImpl implements AddGoalsLogic {
             throw new FitnessErrorException(
                     exception.getMessage(),
                     exception,
-                    ENCRYPTION_EXCEPTION.getCode(),
-                    ENCRYPTION_EXCEPTION.getMessage(),
-                    ENCRYPTION_EXCEPTION.getStatus()
+                    DATABASE_ERROR.getCode(),
+                    DATABASE_ERROR.getMessage(),
+                    DATABASE_ERROR.getStatus()
             );
 
         }
