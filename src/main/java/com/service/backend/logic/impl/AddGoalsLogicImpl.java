@@ -1,0 +1,62 @@
+package com.service.backend.logic.impl;
+
+import com.service.backend.enums.GenericLogEnum;
+import com.service.backend.exceptions.FitnessErrorException;
+import com.service.backend.logic.AddGoalsLogic;
+import com.service.backend.mapper.FitnessMapper;
+import com.service.backend.model.AddGoalsReqDTO;
+import com.service.backend.model.AddGoalsResDTO;
+import com.service.backend.repository.GoalsRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import static com.service.backend.enums.StatusEnum.ENCRYPTION_EXCEPTION;
+
+/**
+ * @author Severiano Atencio
+ */
+@Slf4j
+@Component("SignUpLogicImpl")
+public class AddGoalsLogicImpl implements AddGoalsLogic {
+
+    @Autowired
+    private GoalsRepository goalsRepository;
+
+    @Autowired
+    private FitnessMapper mapper;
+
+    @Override
+    public AddGoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException {
+
+        final var methodName = "encryptPassword";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        final var goalsEntity = mapper.toGoalsEntity(request);
+
+        try {
+
+            goalsRepository.save(goalsEntity);
+
+        } catch (Exception exception) {
+
+            log.error(exception.getMessage());
+
+            throw new FitnessErrorException(
+                    exception.getMessage(),
+                    exception,
+                    ENCRYPTION_EXCEPTION.getCode(),
+                    ENCRYPTION_EXCEPTION.getMessage(),
+                    ENCRYPTION_EXCEPTION.getStatus()
+            );
+
+        }
+
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+        return mapper.toAddGoalResp(goalsEntity);
+
+    }
+
+}
