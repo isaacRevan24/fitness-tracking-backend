@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * @author Severiano Atencio
@@ -20,8 +20,8 @@ public class AddGoalsReqDTO implements Serializable {
     @JsonIgnore
     private static final long serialVersionUID = -7951353229816399975L;
 
-    @NotBlank
-    private String clientId;
+    @NotNull
+    private UUID clientId;
 
     @NotNull
     private Double weightGoal;
@@ -32,7 +32,7 @@ public class AddGoalsReqDTO implements Serializable {
     public AddGoalsReqDTO() {
     }
 
-    public AddGoalsReqDTO(String clientId, Double weightGoal, Integer stepsGoal) {
+    public AddGoalsReqDTO(UUID clientId, Double weightGoal, Integer stepsGoal) {
         this.clientId = clientId;
         this.weightGoal = weightGoal;
         this.stepsGoal = stepsGoal;
@@ -54,11 +54,11 @@ public class AddGoalsReqDTO implements Serializable {
         this.stepsGoal = stepsGoal;
     }
 
-    public String getClientId() {
+    public UUID getClientId() {
         return clientId;
     }
 
-    public void setClientId(String clientId) {
+    public void setClientId(UUID clientId) {
         this.clientId = clientId;
     }
 }

@@ -30,7 +30,7 @@ public class AddGoalsControllerTest {
     @Test
     void itShouldMakeRequestSuccessfully() throws Exception {
         // Given
-        final var bodyRequest = "{ \"body\": { \"clientId\": \"fdfasdf\", \"weightGoal\": 100.00, \"stepsGoal\": 12000 } }";
+        final var bodyRequest = "{ \"body\": { \"clientId\": \"c1822942-0820-45db-955b-70f762b1e872\", \"weightGoal\": 100.00, \"stepsGoal\": 12000 } }";
 
         // When
         // Then
