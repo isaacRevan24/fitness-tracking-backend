@@ -15,7 +15,7 @@ paths:
     post:
       summary: Save user in database.
       tags:
-        - Signup
+        - User
       operationId: signUp
       requestBody:
         description: request entity of signup
@@ -31,25 +31,63 @@ paths:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/SignUpResponse'
+                $ref: '#/components/schemas/FitnessResponse'
         "400":
           description: error
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/SignUpResponse'
+                $ref: '#/components/schemas/FitnessResponse'
         "500":
           description: error
           content:
             application/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/SignUpResponse'
+                $ref: '#/components/schemas/FitnessResponse'
+  
+  /user/sig-in:
+    summary: User signin in fitness tracker database.
+    description: Login user to fitness tracker.
+    post:
+      summary: Validate user.
+      tags:
+        - User
+      operationId: signIn
+      requestBody:
+        description: request entity of signIn
+        content:
+          "*/*":
+            schema:
+              type: object
+              $ref: '#/components/schemas/SignInRequest'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/SignInResponse'
+        "400":
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/FitnessResponse'
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/FitnessResponse'
 
 components:
-  schemas:
 
+  schemas:
     Status:
       description: Contiene la descripción del status del response.
       type: object
@@ -62,6 +100,14 @@ components:
           description: success
           type: string
           example: SignUp success
+    
+    FitnessResponse:
+      description: Generic status response for fitness tracker.
+      type: object
+      properties:
+        status:
+          type: object
+          $ref: '#/components/schemas/Status'
 
     SignUpRequest:
       description: SignUpRequest body
@@ -118,13 +164,47 @@ components:
         - height
         - heightMetric
     
-    SignUpResponse:
-      description: response of service
+    SignInRequest:
+      description: SignInRequest body
       type: object
       properties:
-        Status:
+        body:
+          description: Body
+          type: object
+          $ref: '#/components/schemas/SignInRequestBody'
+      required:
+        - body
+
+    SignInRequestBody:
+      description: Sign in request body data
+      type: object
+      properties:
+        username:
+          description: Username of the client
+          type: string
+          example: Aizack
+        password:
+          description: password with at least 1 capital letter and 1 number
+          type: string
+          example: Password123
+      required:
+        - username
+        - password
+
+    SignInResponse:
+      description: Sign in response
+      type: object
+      properties:
+        status:
           $ref: '#/components/schemas/Status'
-
-
-
-        
+        body:
+          $ref: '#/components/schemas/SignInResponseBody'
+          
+    SignInResponseBody:
+      description: Sign in response body
+      type: object
+      properties:
+        userId:
+          description: Username of the client
+          type: string
+          example: Aizack
