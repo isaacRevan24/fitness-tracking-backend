@@ -22,7 +22,6 @@ paths:
         content:
           "*/*":
             schema:
-              type: object
               $ref: '#/components/schemas/SignUpRequest'
       responses:
         "200":
@@ -30,21 +29,18 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/FitnessResponse'
         "400":
           description: error
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/FitnessResponse'
         "500":
           description: error
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/FitnessResponse'
   
   /user/sig-in:
@@ -60,7 +56,6 @@ paths:
         content:
           "*/*":
             schema:
-              type: object
               $ref: '#/components/schemas/SignInRequest'
       responses:
         "200":
@@ -68,21 +63,52 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/SignInResponse'
         "400":
           description: error
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/FitnessResponse'
         "500":
           description: error
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/FitnessResponse'
+  
+  /goals:
+    summary: Add new goals for user
+    description: Add weight and steps goals
+    post:
+      summary: Add goals
+      tags:
+        - Goals
+      operationId: addGoals
+      requestBody:
+        description: request entity of addGoals
+        content:
+          "*/*":
+            schema:
+              $ref: '#/components/schemas/AddGoalsRequest'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddGoalsResponse'
+        "400":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
                 $ref: '#/components/schemas/FitnessResponse'
 
 components:
@@ -106,22 +132,17 @@ components:
       type: object
       properties:
         status:
-          type: object
           $ref: '#/components/schemas/Status'
 
     SignUpRequest:
-      description: SignUpRequest body
       type: object
       properties:
         body:
-          description: Body
-          type: object
           $ref: '#/components/schemas/SignUpRequestBody'
       required:
         - body
     
     SignUpRequestBody:
-      description: Sign up request body data
       type: object
       properties:
         username:
@@ -165,18 +186,14 @@ components:
         - heightMetric
     
     SignInRequest:
-      description: SignInRequest body
       type: object
       properties:
         body:
-          description: Body
-          type: object
           $ref: '#/components/schemas/SignInRequestBody'
       required:
         - body
 
     SignInRequestBody:
-      description: Sign in request body data
       type: object
       properties:
         username:
@@ -192,7 +209,6 @@ components:
         - password
 
     SignInResponse:
-      description: Sign in response
       type: object
       properties:
         status:
@@ -201,10 +217,58 @@ components:
           $ref: '#/components/schemas/SignInResponseBody'
           
     SignInResponseBody:
-      description: Sign in response body
       type: object
       properties:
         userId:
           description: Username of the client
           type: string
           example: Aizack
+    
+    AddGoalsRequest:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/AddGoalsRequestBody'
+      required:
+        - body
+
+    AddGoalsRequestBody:
+      type: object
+      properties:
+        clientId:
+          description: id del cliente
+          type: string
+          format: uuid
+          example: fe2a4b2e-f67e-429d-9942-a86140abdadf
+        weightGoal:
+          description: weight goals
+          type: number
+          example: 100.00
+        stepsGoal:
+          description: steps goals
+          type: number
+          example: 12000
+      required:
+        - clientId
+        - weightGoal
+        - stepsGoal
+
+    AddGoalsResponse:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/Status'
+        body:
+          $ref: '#/components/schemas/AddGoalsResponseBody'
+          
+    AddGoalsResponseBody:
+      type: object
+      properties:
+        weightGoal:
+          description: weight goals
+          type: number
+          example: 100.00
+        stepsGoal:
+          description: steps goals
+          type: number
+          example: 12000
