@@ -29,7 +29,7 @@ public class AddGoalsLogicImpl implements AddGoalsLogic {
     @Override
     public GoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException {
 
-        final var methodName = "encryptPassword";
+        final var methodName = "addGoals";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
