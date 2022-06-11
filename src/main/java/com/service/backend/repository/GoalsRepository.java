@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 /**
  * @author Severiano Atencio
  */
@@ -12,6 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface GoalsRepository extends JpaRepository<GoalsEntity, Long> {
 
     @Query(value = "SELECT * FROM goals WHERE id=?1", nativeQuery = true)
-    GoalsEntity fetchUserGoals(String clientId);
+    GoalsEntity fetchUserGoals(UUID clientId);
 
 }
