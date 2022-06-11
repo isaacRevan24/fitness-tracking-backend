@@ -16,7 +16,8 @@ public enum StatusEnum {
     INVALID_PASSWORD_FORMAT("FIT-04", "Invalid password format.", HttpStatus.INTERNAL_SERVER_ERROR),
     ERROR_GETTING_USER("FIT-05", "Error getting the user.", HttpStatus.INTERNAL_SERVER_ERROR),
     ERROR_VALIDATION_PASSWORD("FIT-06", "Error validating password.", HttpStatus.INTERNAL_SERVER_ERROR),
-    SIGN_IN_ERROR("FIT-07", "Cant sign in.", HttpStatus.BAD_REQUEST);
+    SIGN_IN_ERROR("FIT-07", "Cant sign in.", HttpStatus.BAD_REQUEST),
+    NOT_MATCHING_RECORD("FIT-08", "Can't find user goals record.", HttpStatus.BAD_REQUEST);
 
     private final String code;
     private final String message;
