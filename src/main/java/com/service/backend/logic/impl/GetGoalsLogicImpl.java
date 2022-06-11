@@ -2,14 +2,16 @@ package com.service.backend.logic.impl;
 
 import com.service.backend.enums.GenericLogEnum;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.AddGoalsLogic;
+import com.service.backend.logic.GetGoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
-import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
 import com.service.backend.repository.GoalsRepository;
+import com.service.backend.repository.entities.GoalsEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 
@@ -17,8 +19,8 @@ import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
  * @author Severiano Atencio
  */
 @Slf4j
-@Component("AddGoalsLogicImpl")
-public class AddGoalsLogicImpl implements AddGoalsLogic {
+@Component("GetGoalsLogicImpl")
+public class GetGoalsLogicImpl implements GetGoalsLogic {
 
     @Autowired
     private GoalsRepository goalsRepository;
@@ -27,19 +29,19 @@ public class AddGoalsLogicImpl implements AddGoalsLogic {
     private FitnessMapper mapper;
 
     @Override
-    public GoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException {
+    public GoalsResDTO getGoals(String clientId) throws FitnessErrorException {
 
-        final var methodName = "addGoals";
+        final var methodName = "getGoals";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        final var goalsEntity = mapper.toGoalsEntity(request);
+        GoalsEntity goals;
 
         try {
 
-            goalsRepository.save(goalsEntity);
+            goals = goalsRepository.fetchUserGoals(UUID.fromString(clientId));
 
-        } catch (Exception exception) {
+        }catch (Exception exception) {
 
             log.error(exception.getMessage());
 
@@ -55,8 +57,7 @@ public class AddGoalsLogicImpl implements AddGoalsLogic {
 
         log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
-        return mapper.toAddGoalResp(goalsEntity);
-
+        return mapper.toAddGoalResp(goals);
     }
 
 }

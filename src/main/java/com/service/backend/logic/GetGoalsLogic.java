@@ -1,14 +1,13 @@
 package com.service.backend.logic;
 
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
 
 /**
  * @author Severiano Atencio
  */
-public interface AddGoalsLogic {
+public interface GetGoalsLogic {
 
-    GoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException;
+    GoalsResDTO getGoals(String clientId) throws FitnessErrorException;
 
 }

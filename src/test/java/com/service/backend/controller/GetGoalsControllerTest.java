@@ -4,7 +4,6 @@ import com.service.backend.FitnessTrackingApplication;
 import com.service.backend.command.FitnessCommand;
 import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.mapper.FitnessMapper;
-import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -20,14 +19,14 @@ import static com.service.backend.enums.StatusEnum.SUCCESS;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = {FitnessTrackingApplication.class}, properties = "spring.main.allow-bean-definition-overriding=true")
 @AutoConfigureMockMvc
-public class AddGoalsControllerTest {
+public class GetGoalsControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,25 +35,24 @@ public class AddGoalsControllerTest {
     private FitnessMapper mapper;
 
     @MockBean
-    @Qualifier("AddGoalsCommand")
-    private FitnessCommand<AddGoalsReqDTO, GoalsResDTO> addGoalsCommand;
+    @Qualifier("GetGoalsCommand")
+    private FitnessCommand<String, GoalsResDTO> getGoalsCommand;
 
     @Test
     void itShouldMakeRequestSuccessfully() throws Exception {
         // Given
-        final var bodyRequest = "{ \"body\": { \"clientId\": \"c1822942-0820-45db-955b-70f762b1e872\", \"weightGoal\": 100.00, \"stepsGoal\": 12000 } }";
+        final var clientId = "5c6696ae-5f94-45d8-ab87-0754ba09e0e8";
 
         // Mock
         final var responseMock = new FitnessResponseEntity<GoalsResDTO>();
         responseMock.setStatus(mapper.toStatusDTO(SUCCESS));
         responseMock.setBody(new GoalsResDTO(100.00, 12000));
-        doReturn(responseMock).when(addGoalsCommand).execute(any());
+        doReturn(responseMock).when(getGoalsCommand).execute(any());
 
         // When
         // Then
-        mockMvc.perform(post("/goals")
+        mockMvc.perform(get("/goals/17517356-d88d-4870-a23e-29d9ca932247")
                         .header("Content-Type", "application/json")
-                        .content(bodyRequest)
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))

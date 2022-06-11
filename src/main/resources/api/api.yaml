@@ -97,7 +97,41 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AddGoalsResponse'
+                $ref: '#/components/schemas/GoalsResponse'
+        "400":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+
+  /goals/{userId}:
+    summary: Get user goals by ID
+    description: Get user goals by ID
+    get:
+      summary: Add goals
+      tags:
+        - Goals
+      operationId: getGoals
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoalsResponse'
         "400":
           description: error
           content:
@@ -125,7 +159,7 @@ components:
         message:
           description: success
           type: string
-          example: SignUp success
+          example: Success
     
     FitnessResponse:
       description: Generic status response for fitness tracker.
@@ -253,15 +287,15 @@ components:
         - weightGoal
         - stepsGoal
 
-    AddGoalsResponse:
+    GoalsResponse:
       type: object
       properties:
         status:
           $ref: '#/components/schemas/Status'
         body:
-          $ref: '#/components/schemas/AddGoalsResponseBody'
+          $ref: '#/components/schemas/GoalsResponseBody'
           
-    AddGoalsResponseBody:
+    GoalsResponseBody:
       type: object
       properties:
         weightGoal:

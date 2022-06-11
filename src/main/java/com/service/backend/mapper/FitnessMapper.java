@@ -1,7 +1,7 @@
 package com.service.backend.mapper;
 
 import com.service.backend.model.AddGoalsReqDTO;
-import com.service.backend.model.AddGoalsResDTO;
+import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
 import com.service.backend.enums.StatusEnum;
@@ -44,6 +44,6 @@ public interface FitnessMapper {
 
     @Mapping(source = "goal.weight", target = "weightGoal")
     @Mapping(source = "goal.steps", target = "stepsGoal")
-    AddGoalsResDTO toAddGoalResp(final GoalsEntity goal);
+    GoalsResDTO toAddGoalResp(final GoalsEntity goal);
 
 }
