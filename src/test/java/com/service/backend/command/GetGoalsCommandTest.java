@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 import static com.service.backend.enums.StatusEnum.INTERNAL_ERROR;
+import static com.service.backend.enums.StatusEnum.NOT_MATCHING_RECORD;
 import static com.service.backend.enums.StatusEnum.SUCCESS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -47,6 +48,21 @@ public class GetGoalsCommandTest {
 
         // Then
         assertThat(response.getStatus().getCode()).isEqualTo(SUCCESS.getCode());
+    }
+
+    @Test
+    void itShouldFailBecauseNoMatchingRecord() {
+        // Given
+        final var request = new FitnessRequestEntity<String>();
+
+        // Mock
+        doReturn(null).when(logic).getGoals(any());
+
+        // When
+        final var response = underTest.execute(request);
+
+        // Then
+        assertThat(response.getStatus().getCode()).isEqualTo(NOT_MATCHING_RECORD.getCode());
     }
 
     @Test
