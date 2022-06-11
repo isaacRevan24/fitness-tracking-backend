@@ -5,7 +5,7 @@ import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.AddGoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
-import com.service.backend.model.AddGoalsResDTO;
+import com.service.backend.model.GoalsResDTO;
 import com.service.backend.repository.GoalsRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class AddGoalsLogicImpl implements AddGoalsLogic {
     private FitnessMapper mapper;
 
     @Override
-    public AddGoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException {
+    public GoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException {
 
         final var methodName = "encryptPassword";
 

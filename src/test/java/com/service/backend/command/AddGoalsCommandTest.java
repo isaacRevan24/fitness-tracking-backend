@@ -6,7 +6,7 @@ import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.AddGoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
-import com.service.backend.model.AddGoalsResDTO;
+import com.service.backend.model.GoalsResDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +26,7 @@ import static org.mockito.Mockito.doThrow;
 public class AddGoalsCommandTest {
 
     @Autowired
-    private FitnessCommand<AddGoalsReqDTO, AddGoalsResDTO> underTest;
+    private FitnessCommand<AddGoalsReqDTO, GoalsResDTO> underTest;
 
     @Autowired
     private FitnessMapper mapper;
@@ -40,7 +40,7 @@ public class AddGoalsCommandTest {
         final var request = new FitnessRequestEntity<AddGoalsReqDTO>();
 
         // Mock
-        final var responseMock = new AddGoalsResDTO();
+        final var responseMock = new GoalsResDTO();
         responseMock.setStepsGoal(10000);
         responseMock.setWeightGoal(100.00);
         doReturn(responseMock).when(logic).addGoals(any());

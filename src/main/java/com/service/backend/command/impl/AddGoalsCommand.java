@@ -8,7 +8,7 @@ import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.AddGoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
-import com.service.backend.model.AddGoalsResDTO;
+import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.StatusDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import static com.service.backend.enums.StatusEnum.SUCCESS;
  */
 @Slf4j
 @Component("AddGoalsCommand")
-public class AddGoalsCommand implements FitnessCommand<AddGoalsReqDTO, AddGoalsResDTO> {
+public class AddGoalsCommand implements FitnessCommand<AddGoalsReqDTO, GoalsResDTO> {
 
     @Autowired
     private AddGoalsLogic logic;
@@ -31,7 +31,7 @@ public class AddGoalsCommand implements FitnessCommand<AddGoalsReqDTO, AddGoalsR
     private FitnessMapper mapper;
 
     @Override
-    public FitnessResponseEntity<AddGoalsResDTO> execute(FitnessRequestEntity<AddGoalsReqDTO> request) throws FitnessErrorException {
+    public FitnessResponseEntity<GoalsResDTO> execute(FitnessRequestEntity<AddGoalsReqDTO> request) throws FitnessErrorException {
         final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
@@ -43,14 +43,14 @@ public class AddGoalsCommand implements FitnessCommand<AddGoalsReqDTO, AddGoalsR
         return response;
     }
 
-    private FitnessResponseEntity<AddGoalsResDTO> saveGoals(AddGoalsReqDTO request) {
+    private FitnessResponseEntity<GoalsResDTO> saveGoals(AddGoalsReqDTO request) {
         final var methodName = "saveGoals";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        final var response = new FitnessResponseEntity<AddGoalsResDTO>();
+        final var response = new FitnessResponseEntity<GoalsResDTO>();
 
-        AddGoalsResDTO responseLogic;
+        GoalsResDTO responseLogic;
 
         try {
 

@@ -1,12 +1,12 @@
 package com.service.backend.controller;
 
 import com.service.backend.command.FitnessCommand;
+import com.service.backend.controller.entity.BaseResponseEntity;
 import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.controller.entity.FitnessResponseEntity;
-import com.service.backend.enums.StatusEnum;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
-import com.service.backend.model.AddGoalsResDTO;
+import com.service.backend.model.GoalsResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -27,16 +27,22 @@ public class GoalsController {
 
     @Autowired
     @Qualifier("AddGoalsCommand")
-    private FitnessCommand<AddGoalsReqDTO, AddGoalsResDTO> addGoalsCommand;
+    private FitnessCommand<AddGoalsReqDTO, GoalsResDTO> addGoalsCommand;
 
     @Autowired
     private FitnessMapper mapper;
 
     @PostMapping(path = "")
-    public ResponseEntity<FitnessResponseEntity<AddGoalsResDTO>> addGoals(@Valid @RequestBody FitnessRequestEntity<AddGoalsReqDTO> body) {
+    public ResponseEntity<FitnessResponseEntity<GoalsResDTO>> addGoals(@Valid @RequestBody FitnessRequestEntity<AddGoalsReqDTO> body) {
         final var request = new FitnessRequestEntity<AddGoalsReqDTO>();
         request.setBody(body.getBody());
         final var response = addGoalsCommand.execute(request);
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
+    }
+
+    public ResponseEntity<BaseResponseEntity> getGoals() {
+
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+
     }
 }

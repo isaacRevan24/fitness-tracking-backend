@@ -5,7 +5,7 @@ import com.service.backend.command.FitnessCommand;
 import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
-import com.service.backend.model.AddGoalsResDTO;
+import com.service.backend.model.GoalsResDTO;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class AddGoalsControllerTest {
 
     @MockBean
     @Qualifier("AddGoalsCommand")
-    private FitnessCommand<AddGoalsReqDTO, AddGoalsResDTO> addGoalsCommand;
+    private FitnessCommand<AddGoalsReqDTO, GoalsResDTO> addGoalsCommand;
 
     @Test
     void itShouldMakeRequestSuccessfully() throws Exception {
@@ -45,9 +45,9 @@ public class AddGoalsControllerTest {
         final var bodyRequest = "{ \"body\": { \"clientId\": \"c1822942-0820-45db-955b-70f762b1e872\", \"weightGoal\": 100.00, \"stepsGoal\": 12000 } }";
 
         // Mock
-        final var responseMock = new FitnessResponseEntity<AddGoalsResDTO>();
+        final var responseMock = new FitnessResponseEntity<GoalsResDTO>();
         responseMock.setStatus(mapper.toStatusDTO(SUCCESS));
-        responseMock.setBody(new AddGoalsResDTO(100.00, 12000));
+        responseMock.setBody(new GoalsResDTO(100.00, 12000));
         doReturn(responseMock).when(addGoalsCommand).execute(any());
 
         // When

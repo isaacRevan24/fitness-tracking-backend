@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Builder
 @ToString
-public class AddGoalsResDTO implements Serializable {
+public class GoalsResDTO implements Serializable {
 
     @Serial
     @JsonIgnore
@@ -25,12 +25,12 @@ public class AddGoalsResDTO implements Serializable {
     @NotNull
     private Integer stepsGoal;
 
-    public AddGoalsResDTO(Double weightGoal, Integer stepsGoal) {
+    public GoalsResDTO(Double weightGoal, Integer stepsGoal) {
         this.weightGoal = weightGoal;
         this.stepsGoal = stepsGoal;
     }
 
-    public AddGoalsResDTO() {
+    public GoalsResDTO() {
     }
 
     public Double getWeightGoal() {
