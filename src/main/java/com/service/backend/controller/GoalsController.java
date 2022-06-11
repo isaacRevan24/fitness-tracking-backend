@@ -1,16 +1,13 @@
 package com.service.backend.controller;
 
 import com.service.backend.command.FitnessCommand;
-import com.service.backend.controller.entity.BaseResponseEntity;
 import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.controller.entity.FitnessResponseEntity;
-import com.service.backend.enums.StatusEnum;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +30,10 @@ public class GoalsController {
     private FitnessCommand<AddGoalsReqDTO, GoalsResDTO> addGoalsCommand;
 
     @Autowired
+    @Qualifier("GetGoalsCommand")
+    private FitnessCommand<String, GoalsResDTO> getGoalsCommand;
+
+    @Autowired
     private FitnessMapper mapper;
 
     @PostMapping(path = "")
@@ -45,11 +46,9 @@ public class GoalsController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<FitnessResponseEntity<GoalsResDTO>> getGoals(@PathVariable String id) {
-
-        var response = new FitnessResponseEntity<GoalsResDTO>();
-        response.setBody(new GoalsResDTO(95.00, 12000));
-        response.setStatus(mapper.toStatusDTO(StatusEnum.SUCCESS));
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        final var request = new FitnessRequestEntity<String>();
+        request.setBody(id);
+        final var response = getGoalsCommand.execute(request);
+        return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
 }
