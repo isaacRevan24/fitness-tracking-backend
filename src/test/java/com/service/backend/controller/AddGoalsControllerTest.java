@@ -1,17 +1,25 @@
 package com.service.backend.controller;
 
 import com.service.backend.FitnessTrackingApplication;
-import com.service.backend.enums.StatusEnum;
+import com.service.backend.command.FitnessCommand;
+import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.mapper.FitnessMapper;
+import com.service.backend.model.AddGoalsReqDTO;
+import com.service.backend.model.AddGoalsResDTO;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.service.backend.enums.StatusEnum.SUCCESS;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -27,10 +35,20 @@ public class AddGoalsControllerTest {
     @Autowired
     private FitnessMapper mapper;
 
+    @MockBean
+    @Qualifier("AddGoalsCommand")
+    private FitnessCommand<AddGoalsReqDTO, AddGoalsResDTO> addGoalsCommand;
+
     @Test
     void itShouldMakeRequestSuccessfully() throws Exception {
         // Given
         final var bodyRequest = "{ \"body\": { \"clientId\": \"c1822942-0820-45db-955b-70f762b1e872\", \"weightGoal\": 100.00, \"stepsGoal\": 12000 } }";
+
+        // Mock
+        final var responseMock = new FitnessResponseEntity<AddGoalsResDTO>();
+        responseMock.setStatus(mapper.toStatusDTO(SUCCESS));
+        responseMock.setBody(new AddGoalsResDTO(100.00, 12000));
+        doReturn(responseMock).when(addGoalsCommand).execute(any());
 
         // When
         // Then
@@ -40,7 +58,7 @@ public class AddGoalsControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.status.code", Matchers.is(StatusEnum.SUCCESS.getCode())))
-                .andExpect(jsonPath("$.status.message", is(StatusEnum.SUCCESS.getMessage())));
+                .andExpect(jsonPath("$.status.code", Matchers.is(SUCCESS.getCode())))
+                .andExpect(jsonPath("$.status.message", is(SUCCESS.getMessage())));
     }
 }
