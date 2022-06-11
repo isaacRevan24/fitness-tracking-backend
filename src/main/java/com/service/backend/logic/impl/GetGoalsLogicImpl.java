@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 
 /**
@@ -37,7 +39,7 @@ public class GetGoalsLogicImpl implements GetGoalsLogic {
 
         try {
 
-            goals = goalsRepository.fetchUserGoals(clientId);
+            goals = goalsRepository.fetchUserGoals(UUID.fromString(clientId));
 
         }catch (Exception exception) {
 
