@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static com.service.backend.enums.StatusEnum.INTERNAL_ERROR;
+import static com.service.backend.enums.StatusEnum.NOT_MATCHING_RECORD;
 import static com.service.backend.enums.StatusEnum.SUCCESS;
 
 /**
@@ -76,6 +77,15 @@ public class GetGoalsCommand implements FitnessCommand<String, GoalsResDTO> {
 
             return response;
 
+        }
+
+        if (responseLogic == null) {
+
+            response.setStatus(mapper.toStatusDTO(NOT_MATCHING_RECORD));
+
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+            return response;
         }
 
         response.setStatus(mapper.toStatusDTO(SUCCESS));
