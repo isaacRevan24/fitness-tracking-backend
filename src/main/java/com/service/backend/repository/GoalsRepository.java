@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface GoalsRepository extends JpaRepository<GoalsEntity, Long> {
 
     @Query(value = "SELECT * FROM goals WHERE id=?1", nativeQuery = true)
-    GoalsEntity getUserGoals(String clientId);
+    GoalsEntity fetchUserGoals(String clientId);
 
 }
