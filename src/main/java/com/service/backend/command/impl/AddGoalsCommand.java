@@ -12,9 +12,12 @@ import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.StatusDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import static com.service.backend.enums.StatusEnum.INTERNAL_ERROR;
+import static com.service.backend.enums.StatusEnum.INVALID_STEP_GOAL;
+import static com.service.backend.enums.StatusEnum.INVALID_WEIGHT_GOAL;
 import static com.service.backend.enums.StatusEnum.SUCCESS;
 
 /**
@@ -30,13 +33,32 @@ public class AddGoalsCommand implements FitnessCommand<AddGoalsReqDTO, GoalsResD
     @Autowired
     private FitnessMapper mapper;
 
+    @Value( "${weight.values.max}" )
+    private Double weightValues;
+
+    @Value( "${steps.values.max}" )
+    private Integer stepsValues;
+
     @Override
     public FitnessResponseEntity<GoalsResDTO> execute(FitnessRequestEntity<AddGoalsReqDTO> request) throws FitnessErrorException {
         final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        final var response = saveGoals(request.getBody());
+        var response = new FitnessResponseEntity<GoalsResDTO>();
+
+        final var validation = validateGoalsValues(request.getBody());
+
+        if(validation != null) {
+
+            response.setStatus(validation);
+
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+            return response;
+        }
+
+        response = saveGoals(request.getBody());
 
         log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
@@ -82,6 +104,24 @@ public class AddGoalsCommand implements FitnessCommand<AddGoalsReqDTO, GoalsResD
         log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return response;
+
+    }
+
+    private StatusDTO validateGoalsValues(AddGoalsReqDTO request) {
+
+        final var methodName = "validateGoalsValues";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        if(request.getWeightGoal() < 0 || request.getWeightGoal() > weightValues)
+            return mapper.toStatusDTO(INVALID_WEIGHT_GOAL);
+
+        if(request.getStepsGoal() < 0 || request.getStepsGoal() > stepsValues)
+            return mapper.toStatusDTO(INVALID_STEP_GOAL);
+
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+        return null;
 
     }
 }

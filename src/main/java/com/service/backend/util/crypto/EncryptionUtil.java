@@ -1,7 +1,5 @@
 package com.service.backend.util.crypto;
 
-import com.service.backend.exceptions.FitnessErrorException;
-
 /**
  * @author Severiano Atencio
  */
