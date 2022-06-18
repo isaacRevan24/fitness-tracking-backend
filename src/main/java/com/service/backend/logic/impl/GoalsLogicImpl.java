@@ -129,4 +129,9 @@ public class GoalsLogicImpl implements GoalsLogic {
         return mapper.toStatusDTO(SUCCESS);
     }
 
+    @Override
+    public StatusDTO updateStepsGoal(UUID clientId, Integer steps) throws FitnessErrorException {
+        return null;
+    }
+
 }

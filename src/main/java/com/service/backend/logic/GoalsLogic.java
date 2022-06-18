@@ -17,5 +17,7 @@ public interface GoalsLogic {
     GoalsResDTO getGoals(String clientId) throws FitnessErrorException;
 
     StatusDTO updateWeightGoal(UUID clientId, Double weight) throws FitnessErrorException;
+    
+    StatusDTO updateStepsGoal(UUID clientId, Integer steps) throws FitnessErrorException;
 
 }
