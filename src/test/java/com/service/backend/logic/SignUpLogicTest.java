@@ -29,7 +29,7 @@ class SignUpLogicTest {
     private ClientValuesRepository clientValuesRepository;
 
     @Autowired
-    private SignUpLogic underTest;
+    private UserLogic underTest;
 
     @MockBean
     private EncryptionUtil encryptionUtil;
