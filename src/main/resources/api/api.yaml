@@ -145,6 +145,34 @@ paths:
               schema:
                 $ref: '#/components/schemas/FitnessResponse'
 
+  /goals/weight:
+    summary: Update weight goal by id
+    description: Update weight goal by id
+    put:
+      summary: Update goals
+      tags:
+        - Goals
+      operationId: updateWeightGoal
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+        "400":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+
 components:
 
   schemas:
@@ -306,3 +334,27 @@ components:
           description: steps goals
           type: number
           example: 12000
+
+    UpdateWeightGoal:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/UpdateWeightGoalBody'
+      required:
+        - body
+
+    UpdateWeightGoalBody:
+      type: object
+      properties:
+        clientId:
+          description: id del cliente
+          type: string
+          format: uuid
+          example: fe2a4b2e-f67e-429d-9942-a86140abdadf
+        weightGoal:
+          description: weight goals
+          type: number
+          example: 100.00
+      required:
+        - clientId
+        - weightGoal
