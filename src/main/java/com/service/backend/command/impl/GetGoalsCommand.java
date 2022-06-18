@@ -5,7 +5,7 @@ import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.enums.GenericLogEnum;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.GetGoalsLogic;
+import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.StatusDTO;
@@ -25,7 +25,7 @@ import static com.service.backend.enums.StatusEnum.SUCCESS;
 public class GetGoalsCommand implements FitnessCommand<String, GoalsResDTO> {
 
     @Autowired
-    private GetGoalsLogic logic;
+    private GoalsLogic logic;
 
     @Autowired
     private FitnessMapper mapper;

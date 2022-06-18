@@ -7,9 +7,12 @@ import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
 import com.service.backend.repository.GoalsRepository;
+import com.service.backend.repository.entities.GoalsEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
 
@@ -57,6 +60,38 @@ public class GoalsLogicImpl implements GoalsLogic {
 
         return mapper.toAddGoalResp(goalsEntity);
 
+    }
+
+    @Override
+    public GoalsResDTO getGoals(String clientId) throws FitnessErrorException {
+
+        final var methodName = "getGoals";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        GoalsEntity goals;
+
+        try {
+
+            goals = goalsRepository.fetchUserGoals(UUID.fromString(clientId));
+
+        }catch (Exception exception) {
+
+            log.error(exception.getMessage());
+
+            throw new FitnessErrorException(
+                    exception.getMessage(),
+                    exception,
+                    DATABASE_ERROR.getCode(),
+                    DATABASE_ERROR.getMessage(),
+                    DATABASE_ERROR.getStatus()
+            );
+
+        }
+
+        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+        return mapper.toAddGoalResp(goals);
     }
 
 }

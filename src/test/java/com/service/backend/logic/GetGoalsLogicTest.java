@@ -21,7 +21,7 @@ import static org.mockito.Mockito.doThrow;
 public class GetGoalsLogicTest {
 
     @Autowired
-    private GetGoalsLogic underTest;
+    private GoalsLogic underTest;
 
     @MockBean
     private GoalsRepository goalsRepository;

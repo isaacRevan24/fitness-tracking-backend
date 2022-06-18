@@ -3,7 +3,7 @@ package com.service.backend.command;
 import com.service.backend.FitnessTrackingApplication;
 import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.GetGoalsLogic;
+import com.service.backend.logic.GoalsLogic;
 import com.service.backend.model.GoalsResDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class GetGoalsCommandTest {
     private FitnessCommand<String, GoalsResDTO> underTest;
 
     @MockBean
-    private GetGoalsLogic logic;
+    private GoalsLogic logic;
 
     @Test
     void itShouldExecuteSuccessfully() {

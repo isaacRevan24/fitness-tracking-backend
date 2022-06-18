@@ -11,4 +11,6 @@ public interface GoalsLogic {
 
     GoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException;
 
+    GoalsResDTO getGoals(String clientId) throws FitnessErrorException;
+
 }
