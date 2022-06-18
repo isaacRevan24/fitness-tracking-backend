@@ -6,6 +6,7 @@ import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
+import com.service.backend.model.StatusDTO;
 import com.service.backend.repository.GoalsRepository;
 import com.service.backend.repository.entities.GoalsEntity;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
+import static com.service.backend.enums.StatusEnum.ERROR_UPDATING_WEIGHT;
+import static com.service.backend.enums.StatusEnum.SUCCESS;
 
 /**
  * @author Severiano Atencio
@@ -92,6 +95,38 @@ public class GoalsLogicImpl implements GoalsLogic {
         log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return mapper.toAddGoalResp(goals);
+    }
+
+    @Override
+    public StatusDTO updateWeightGoal(UUID clientId, Double weight) throws FitnessErrorException {
+
+        final var methodName = "updateWeightGoal";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        try {
+
+            int updated = goalsRepository.updateWeighGoal(clientId, weight);
+
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+            if(updated < 1) return mapper.toStatusDTO(ERROR_UPDATING_WEIGHT);
+
+        }catch (Exception exception) {
+
+            log.error(exception.getMessage());
+
+            throw new FitnessErrorException(
+                    exception.getMessage(),
+                    exception,
+                    DATABASE_ERROR.getCode(),
+                    DATABASE_ERROR.getMessage(),
+                    DATABASE_ERROR.getStatus()
+            );
+
+        }
+
+        return mapper.toStatusDTO(SUCCESS);
     }
 
 }
