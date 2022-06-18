@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
+import static com.service.backend.enums.StatusEnum.ERROR_UPDATING_STEPS;
 import static com.service.backend.enums.StatusEnum.ERROR_UPDATING_WEIGHT;
 import static com.service.backend.enums.StatusEnum.SUCCESS;
 
@@ -112,6 +113,8 @@ public class GoalsLogicImpl implements GoalsLogic {
 
             if(updated < 1) return mapper.toStatusDTO(ERROR_UPDATING_WEIGHT);
 
+            return mapper.toStatusDTO(SUCCESS);
+
         }catch (Exception exception) {
 
             log.error(exception.getMessage());
@@ -125,13 +128,37 @@ public class GoalsLogicImpl implements GoalsLogic {
             );
 
         }
-
-        return mapper.toStatusDTO(SUCCESS);
     }
 
     @Override
     public StatusDTO updateStepsGoal(UUID clientId, Integer steps) throws FitnessErrorException {
-        return null;
+        final var methodName = "updateStepsGoal";
+
+        log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
+
+        try {
+
+            int updated = goalsRepository.updateStepsGoal(clientId, steps);
+
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+            if(updated < 1) return mapper.toStatusDTO(ERROR_UPDATING_STEPS);
+
+            return mapper.toStatusDTO(SUCCESS);
+
+        }catch (Exception exception) {
+
+            log.error(exception.getMessage());
+
+            throw new FitnessErrorException(
+                    exception.getMessage(),
+                    exception,
+                    DATABASE_ERROR.getCode(),
+                    DATABASE_ERROR.getMessage(),
+                    DATABASE_ERROR.getStatus()
+            );
+
+        }
     }
 
 }
