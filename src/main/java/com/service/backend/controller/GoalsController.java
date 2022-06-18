@@ -10,7 +10,6 @@ import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.UpdateWeightGoalReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +37,10 @@ public class GoalsController {
     private FitnessCommand<String, GoalsResDTO> getGoalsCommand;
 
     @Autowired
+    @Qualifier("UpdateWeightGoalsCommand")
+    private FitnessCommand<UpdateWeightGoalReq, Void> updateWeightGoalCommand;
+
+    @Autowired
     private FitnessMapper mapper;
 
     @PostMapping(path = "")
@@ -57,7 +60,10 @@ public class GoalsController {
     }
 
     @PutMapping(path = "/weight")
-    public ResponseEntity<FitnessResponseEntity<GoalsResDTO>> updateWeightGoal(@Valid @RequestBody FitnessRequestEntity<UpdateWeightGoalReq> body) {
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+    public ResponseEntity<BaseResponseEntity> updateWeightGoal(@Valid @RequestBody FitnessRequestEntity<UpdateWeightGoalReq> body) {
+        final var request = new FitnessRequestEntity<UpdateWeightGoalReq>();
+        request.setBody(body.getBody());
+        final var response = updateWeightGoalCommand.execute(request);
+        return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
 }
