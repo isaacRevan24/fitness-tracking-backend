@@ -7,7 +7,7 @@ import com.service.backend.model.GoalsResDTO;
 /**
  * @author Severiano Atencio
  */
-public interface AddGoalsLogic {
+public interface GoalsLogic {
 
     GoalsResDTO addGoals(AddGoalsReqDTO request) throws FitnessErrorException;
 

@@ -20,10 +20,10 @@ import static org.mockito.Mockito.doThrow;
 
 @SpringBootTest(classes = {FitnessTrackingApplication.class},
         properties = "spring.main.allow-bean-definition-overriding=true")
-public class AddGoalsLogicTest {
+public class GoalsLogicTest {
 
     @Autowired
-    private AddGoalsLogic underTest;
+    private GoalsLogic underTest;
 
     @MockBean
     private GoalsRepository goalsRepository;

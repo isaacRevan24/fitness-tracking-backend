@@ -2,7 +2,7 @@ package com.service.backend.logic.impl;
 
 import com.service.backend.enums.GenericLogEnum;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.AddGoalsLogic;
+import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
@@ -18,7 +18,7 @@ import static com.service.backend.enums.StatusEnum.DATABASE_ERROR;
  */
 @Slf4j
 @Component("AddGoalsLogicImpl")
-public class AddGoalsLogicImpl implements AddGoalsLogic {
+public class GoalsLogicImpl implements GoalsLogic {
 
     @Autowired
     private GoalsRepository goalsRepository;
