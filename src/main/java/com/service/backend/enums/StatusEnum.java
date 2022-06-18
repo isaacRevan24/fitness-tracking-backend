@@ -19,7 +19,8 @@ public enum StatusEnum {
     SIGN_IN_ERROR("FIT-07", "Cant sign in.", HttpStatus.BAD_REQUEST),
     NOT_MATCHING_RECORD("FIT-08", "Can't find user goals record.", HttpStatus.BAD_REQUEST),
     INVALID_WEIGHT_GOAL("FIT-09", "Invalid weight goal.", HttpStatus.BAD_REQUEST),
-    INVALID_STEP_GOAL("FIT-10", "Invalid step goal.", HttpStatus.BAD_REQUEST);
+    INVALID_STEP_GOAL("FIT-10", "Invalid step goal.", HttpStatus.BAD_REQUEST),
+    ERROR_UPDATING_WEIGHT("FIT-10", "Error trying to update weight.", HttpStatus.BAD_REQUEST);
 
     private final String code;
     private final String message;
