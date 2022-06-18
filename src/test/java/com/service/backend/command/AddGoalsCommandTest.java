@@ -3,7 +3,7 @@ package com.service.backend.command;
 import com.service.backend.FitnessTrackingApplication;
 import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.AddGoalsLogic;
+import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
@@ -36,7 +36,7 @@ public class AddGoalsCommandTest {
     private FitnessMapper mapper;
 
     @MockBean
-    private AddGoalsLogic logic;
+    private GoalsLogic logic;
 
     @Test
     void itShouldSuccessfullyExecuteCommandForAddGoals() {

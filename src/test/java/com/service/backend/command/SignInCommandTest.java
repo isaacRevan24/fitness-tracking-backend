@@ -4,7 +4,7 @@ import com.service.backend.FitnessTrackingApplication;
 import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.enums.StatusEnum;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.SignInLogic;
+import com.service.backend.logic.UserLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignInReqDTO;
 import com.service.backend.model.SignInResDTO;
@@ -32,7 +32,7 @@ class SignInCommandTest {
     private FitnessMapper mapper;
 
     @MockBean
-    private SignInLogic logic;
+    private UserLogic logic;
 
     @Test
     void itShouldExecuteSignInCommandSuccessfully() {

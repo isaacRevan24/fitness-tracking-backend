@@ -7,22 +7,22 @@ import com.service.backend.enums.GenericLogEnum;
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
-import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.StatusDTO;
+import com.service.backend.model.UpdateWeightGoalReq;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import static com.service.backend.enums.StatusEnum.INTERNAL_ERROR;
-import static com.service.backend.enums.StatusEnum.NOT_MATCHING_RECORD;
-import static com.service.backend.enums.StatusEnum.SUCCESS;
+import static com.service.backend.enums.StatusEnum.INVALID_WEIGHT_GOAL;
 
 /**
  * @author Severiano Atencio
  */
 @Slf4j
-@Component("GetGoalsCommand")
-public class GetGoalsCommand implements FitnessCommand<String, GoalsResDTO> {
+@Component("UpdateWeightGoalsCommand")
+public class UpdateWeightGoalsCommand implements FitnessCommand<UpdateWeightGoalReq, Void> {
 
     @Autowired
     private GoalsLogic logic;
@@ -30,35 +30,51 @@ public class GetGoalsCommand implements FitnessCommand<String, GoalsResDTO> {
     @Autowired
     private FitnessMapper mapper;
 
-    @Override
-    public FitnessResponseEntity<GoalsResDTO> execute(FitnessRequestEntity<String> request) throws FitnessErrorException {
+    @Value("${weight.values.max}")
+    private Double weightValues;
 
+    @Override
+    public FitnessResponseEntity<Void> execute(FitnessRequestEntity<UpdateWeightGoalReq> request) throws FitnessErrorException {
         final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        final var response = getGoals(request.getBody());
+        var response = new FitnessResponseEntity<Void>();
+
+        final var validation = validateWeightGoalValue(request.getBody().getWeightGoal());
+
+        if (validation != null) {
+
+            response.setStatus(validation);
+
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+            return response;
+        }
+
+        response = updateWeightGoal(request.getBody());
 
         log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
         return response;
     }
 
-    private FitnessResponseEntity<GoalsResDTO> getGoals(String request) {
-
-        final var methodName = "getGoals";
+    private FitnessResponseEntity<Void> updateWeightGoal(UpdateWeightGoalReq request) {
+        final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
 
-        final var response = new FitnessResponseEntity<GoalsResDTO>();
-
-        GoalsResDTO responseLogic;
+        final var response = new FitnessResponseEntity<Void>();
 
         try {
 
-            responseLogic = logic.getGoals(request);
+            final var status = logic.updateWeightGoal(request.getClientId(), request.getWeightGoal());
 
-            response.setBody(responseLogic);
+            response.setStatus(status);
+
+            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
+
+            return response;
 
         } catch (FitnessErrorException fitnessException) {
 
@@ -76,24 +92,10 @@ public class GetGoalsCommand implements FitnessCommand<String, GoalsResDTO> {
             log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
 
             return response;
-
         }
-
-        if (responseLogic == null) {
-
-            response.setStatus(mapper.toStatusDTO(NOT_MATCHING_RECORD));
-
-            log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
-
-            return response;
-        }
-
-        response.setStatus(mapper.toStatusDTO(SUCCESS));
-
-        log.debug(GenericLogEnum.FINISH_MESSAGE.getMessage() + methodName);
-
-        return response;
-
     }
 
+    private StatusDTO validateWeightGoalValue(Double value) {
+        return (value < 0 || value > weightValues) ? mapper.toStatusDTO(INVALID_WEIGHT_GOAL) : null;
+    }
 }

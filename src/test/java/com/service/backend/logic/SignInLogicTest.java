@@ -28,7 +28,7 @@ public class SignInLogicTest {
     private EncryptionUtil encryptionUtil;
 
     @Autowired
-    private SignInLogic underTest;
+    private UserLogic underTest;
 
     @Test
     void itShouldGetPasswordSuccessfully() {

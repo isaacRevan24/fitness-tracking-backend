@@ -41,36 +41,25 @@ public class UserController {
 
     @GetMapping(path = "/health-check")
     public ResponseEntity<BaseResponseEntity> healthCheck() {
-
         final var status = mapper.toStatusDTO(StatusEnum.SUCCESS);
         final var response = new BaseResponseEntity(status);
-
         return ResponseEntity.status(status.getHttpStatus()).body(response);
     }
 
     @PostMapping(path = "/sign-up")
     public ResponseEntity<BaseResponseEntity> signUp(@Valid @RequestBody FitnessRequestEntity<SignUpReqDTO> body) {
-
         final var request = new FitnessRequestEntity<SignUpReqDTO>();
-
         request.setBody(body.getBody());
-
         final var response = signUpCommand.execute(request);
-
         response.setBody(null);
-
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
 
     @PostMapping(path = "/sign-in")
     public ResponseEntity<FitnessResponseEntity<SignInResDTO>> signIn(@Valid @RequestBody FitnessRequestEntity<SignInReqDTO> body) {
-
         final var request = new FitnessRequestEntity<SignInReqDTO>();
-
         request.setBody(body.getBody());
-
         final var response = signInCommand.execute(request);
-
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
 }

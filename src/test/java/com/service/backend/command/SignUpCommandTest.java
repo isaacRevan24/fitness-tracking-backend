@@ -4,7 +4,7 @@ import com.service.backend.FitnessTrackingApplication;
 import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.enums.StatusEnum;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.SignUpLogic;
+import com.service.backend.logic.UserLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
@@ -29,7 +29,7 @@ class SignUpCommandTest {
     private FitnessCommand<SignUpReqDTO, StatusDTO> underTest;
 
     @MockBean
-    private SignUpLogic signUpLogic;
+    private UserLogic userLogic;
 
     @Autowired
     private FitnessMapper mapper;
@@ -44,7 +44,7 @@ class SignUpCommandTest {
 
         // Mock
         final var encodedString = Base64.getEncoder().encodeToString(requestBody.getPassword().getBytes());
-        doReturn(encodedString).when(signUpLogic).encryptPassword(any());
+        doReturn(encodedString).when(userLogic).encryptPassword(any());
 
         // When
         var response = underTest.execute(request);
@@ -64,7 +64,7 @@ class SignUpCommandTest {
 
         // Mock
         doThrow(new FitnessErrorException(DATABASE_ERROR.getCode(), DATABASE_ERROR.getMessage(),
-                DATABASE_ERROR.getStatus())).when(signUpLogic).signUp(any());
+                DATABASE_ERROR.getStatus())).when(userLogic).signUp(any());
 
         // When
         var response = underTest.execute(request);
@@ -83,7 +83,7 @@ class SignUpCommandTest {
         request.setBody(requestBody);
 
         // Mock
-        doThrow(new RuntimeException()).when(signUpLogic).signUp(any());
+        doThrow(new RuntimeException()).when(userLogic).signUp(any());
 
         // When
         var response = underTest.execute(request);
@@ -103,7 +103,7 @@ class SignUpCommandTest {
 
         // Mock
         final var encodedString = Base64.getEncoder().encodeToString(requestBody.getPassword().getBytes());
-        doReturn(encodedString).when(signUpLogic).encryptPassword(any());
+        doReturn(encodedString).when(userLogic).encryptPassword(any());
 
         // When
         var response = underTest.execute(request);

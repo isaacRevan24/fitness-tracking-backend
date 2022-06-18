@@ -5,7 +5,7 @@ import com.service.backend.controller.entity.FitnessRequestEntity;
 import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.enums.GenericLogEnum;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.SignInLogic;
+import com.service.backend.logic.UserLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignInReqDTO;
 import com.service.backend.model.SignInResDTO;
@@ -30,7 +30,7 @@ public class SignInCommand implements FitnessCommand<SignInReqDTO, SignInResDTO>
     private FitnessMapper mapper;
 
     @Autowired
-    private SignInLogic logic;
+    private UserLogic logic;
 
     @Override
     public FitnessResponseEntity<SignInResDTO> execute(FitnessRequestEntity<SignInReqDTO> request) throws FitnessErrorException {

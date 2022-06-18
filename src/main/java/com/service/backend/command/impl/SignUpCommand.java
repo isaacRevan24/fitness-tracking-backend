@@ -6,7 +6,7 @@ import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.enums.GenericLogEnum;
 import com.service.backend.enums.StatusEnum;
 import com.service.backend.exceptions.FitnessErrorException;
-import com.service.backend.logic.SignUpLogic;
+import com.service.backend.logic.UserLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
@@ -31,7 +31,7 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
     private FitnessMapper mapper;
 
     @Autowired
-    private SignUpLogic signUpLogic;
+    private UserLogic userLogic;
 
     @Value( "${password.regex}" )
     private String passwordRegex;
@@ -105,9 +105,9 @@ public class SignUpCommand implements FitnessCommand<SignUpReqDTO, StatusDTO> {
 
         try {
 
-            request.setPassword(signUpLogic.encryptPassword(request.getPassword()));
+            request.setPassword(userLogic.encryptPassword(request.getPassword()));
 
-            signUpLogic.signUp(request);
+            userLogic.signUp(request);
 
             status = mapper.toStatusDTO(StatusEnum.SUCCESS);
 
