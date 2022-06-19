@@ -7,6 +7,7 @@ import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
+import com.service.backend.model.UpdateStepsGoalReq;
 import com.service.backend.model.UpdateWeightGoalReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,6 +42,10 @@ public class GoalsController {
     private FitnessCommand<UpdateWeightGoalReq, Void> updateWeightGoalCommand;
 
     @Autowired
+    @Qualifier("UpdateStepsGoalCommand")
+    private FitnessCommand<UpdateStepsGoalReq, Void> updateStepsGoalCommand;
+
+    @Autowired
     private FitnessMapper mapper;
 
     @PostMapping(path = "")
@@ -64,6 +69,14 @@ public class GoalsController {
         final var request = new FitnessRequestEntity<UpdateWeightGoalReq>();
         request.setBody(body.getBody());
         final var response = updateWeightGoalCommand.execute(request);
+        return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
+    }
+
+    @PutMapping(path = "/steps")
+    public ResponseEntity<BaseResponseEntity> updateStepsGoal(@Valid @RequestBody FitnessRequestEntity<UpdateStepsGoalReq> body) {
+        final var request = new FitnessRequestEntity<UpdateStepsGoalReq>();
+        request.setBody(body.getBody());
+        final var response = updateStepsGoalCommand.execute(request);
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
 }

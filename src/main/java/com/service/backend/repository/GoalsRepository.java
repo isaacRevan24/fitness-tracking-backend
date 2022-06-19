@@ -23,4 +23,9 @@ public interface GoalsRepository extends JpaRepository<GoalsEntity, Long> {
     @Query(value = "UPDATE goals SET weight=?2 WHERE id=?1", nativeQuery = true)
     int updateWeighGoal(UUID clientId,  Double weight);
 
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE goals SET steps=?2 WHERE id=?1", nativeQuery = true)
+    int updateStepsGoal(UUID clientId,  Integer steps);
+
 }

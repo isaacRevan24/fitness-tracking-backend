@@ -18,4 +18,6 @@ public interface GoalsLogic {
 
     StatusDTO updateWeightGoal(UUID clientId, Double weight) throws FitnessErrorException;
 
+    StatusDTO updateStepsGoal(UUID clientId, Integer steps) throws FitnessErrorException;
+
 }
