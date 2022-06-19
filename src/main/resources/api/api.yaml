@@ -18,7 +18,6 @@ paths:
         - User
       operationId: signUp
       requestBody:
-        description: request entity of signup
         content:
           "*/*":
             schema:
@@ -52,7 +51,6 @@ paths:
         - User
       operationId: signIn
       requestBody:
-        description: request entity of signIn
         content:
           "*/*":
             schema:
@@ -86,7 +84,6 @@ paths:
         - Goals
       operationId: addGoals
       requestBody:
-        description: request entity of addGoals
         content:
           "*/*":
             schema:
@@ -149,10 +146,48 @@ paths:
     summary: Update weight goal by id
     description: Update weight goal by id
     put:
-      summary: Update goals
+      summary: Update weight goals
       tags:
         - Goals
       operationId: updateWeightGoal
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              $ref: '#/components/schemas/UpdateWeightGoal'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+        "400":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FitnessResponse'
+
+  /goals/steps:
+    summary: Update steps goal by id
+    description: Update steps goal by id
+    put:
+      summary: Update steps goals
+      tags:
+        - Goals
+      operationId: updateStepsGoal
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              $ref: '#/components/schemas/UpdateStepsGoal'
       responses:
         "200":
           description: success
@@ -358,3 +393,27 @@ components:
       required:
         - clientId
         - weightGoal
+
+    UpdateStepsGoal:
+      type: object
+      properties:
+        body:
+          $ref: '#/components/schemas/UpdateStepsGoalBody'
+      required:
+        - body
+
+    UpdateStepsGoalBody:
+      type: object
+      properties:
+        clientId:
+          description: id del cliente
+          type: string
+          format: uuid
+          example: fe2a4b2e-f67e-429d-9942-a86140abdadf
+        stepsGoal:
+          description: steps goals
+          type: number
+          example: 100
+      required:
+        - clientId
+        - stepsGoal
