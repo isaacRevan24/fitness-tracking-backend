@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
@@ -26,13 +27,14 @@ public class WeightTrackEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = -7326810366049032079L;
 
+    @Id
+    @Column(name = "id")
+    private UUID id;
+
     @Column(name = "weight")
     private Double weight;
 
     @Column(name = "created_at")
     private Date createdAt;
-
-    @Column(name = "id")
-    private UUID id;
 
 }

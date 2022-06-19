@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author Severiano Atencio
  */
 @Repository
-public interface WeightTrackRepository extends JpaRepository<WeightTrackEntity, String> {
+public interface WeightTrackRepository extends JpaRepository<WeightTrackEntity, Long> {
 }
