@@ -24,11 +24,15 @@ public class AddWeightTrackReqDTO implements Serializable {
     private UUID clientId;
 
     @NotNull
+    private Double weight;
+
+    @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;
 
-    public AddWeightTrackReqDTO(UUID clientId, Date date) {
+    public AddWeightTrackReqDTO(UUID clientId, Double weight, Date date) {
         this.clientId = clientId;
+        this.weight = weight;
         this.date = date;
     }
 
@@ -41,6 +45,14 @@ public class AddWeightTrackReqDTO implements Serializable {
 
     public void setClientId(UUID clientId) {
         this.clientId = clientId;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     public Date getDate() {
