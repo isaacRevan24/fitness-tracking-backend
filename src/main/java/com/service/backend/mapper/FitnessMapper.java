@@ -2,6 +2,7 @@ package com.service.backend.mapper;
 
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.AddWeightTrackReqDTO;
+import com.service.backend.model.AddWeightTrackResDTO;
 import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
@@ -51,5 +52,8 @@ public interface FitnessMapper {
     @Mapping(source = "request.weight", target = "weight")
     @Mapping(source = "request.date", target = "createdAt")
     WeightTrackEntity toWeightTrackEntity(final AddWeightTrackReqDTO request);
+
+    @Mapping(source = "entity.weightTrackId", target = "weightTrackId")
+    AddWeightTrackResDTO toAddWeightTrackResponse(final WeightTrackEntity entity);
 
 }
