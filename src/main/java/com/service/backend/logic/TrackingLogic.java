@@ -2,12 +2,13 @@ package com.service.backend.logic;
 
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.model.AddWeightTrackReqDTO;
+import com.service.backend.model.AddWeightTrackResDTO;
 
 /**
  * @author Severiano Atencio
  */
 public interface TrackingLogic {
 
-    void addWeighEntry(AddWeightTrackReqDTO request) throws FitnessErrorException;
+    AddWeightTrackResDTO addWeighEntry(AddWeightTrackReqDTO request) throws FitnessErrorException;
 
 }
