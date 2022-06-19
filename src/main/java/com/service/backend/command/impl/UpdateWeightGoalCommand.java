@@ -8,7 +8,7 @@ import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.StatusDTO;
-import com.service.backend.model.UpdateWeightGoalReq;
+import com.service.backend.model.UpdateWeightGoalReqDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,7 @@ import static com.service.backend.enums.StatusEnum.INVALID_WEIGHT_GOAL;
  */
 @Slf4j
 @Component("UpdateWeightGoalsCommand")
-public class UpdateWeightGoalCommand implements FitnessCommand<UpdateWeightGoalReq, Void> {
+public class UpdateWeightGoalCommand implements FitnessCommand<UpdateWeightGoalReqDTO, Void> {
 
     @Autowired
     private GoalsLogic logic;
@@ -34,7 +34,7 @@ public class UpdateWeightGoalCommand implements FitnessCommand<UpdateWeightGoalR
     private Double weightValues;
 
     @Override
-    public FitnessResponseEntity<Void> execute(FitnessRequestEntity<UpdateWeightGoalReq> request) throws FitnessErrorException {
+    public FitnessResponseEntity<Void> execute(FitnessRequestEntity<UpdateWeightGoalReqDTO> request) throws FitnessErrorException {
         final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
@@ -59,7 +59,7 @@ public class UpdateWeightGoalCommand implements FitnessCommand<UpdateWeightGoalR
         return response;
     }
 
-    private FitnessResponseEntity<Void> updateWeightGoal(UpdateWeightGoalReq request) {
+    private FitnessResponseEntity<Void> updateWeightGoal(UpdateWeightGoalReqDTO request) {
         final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);

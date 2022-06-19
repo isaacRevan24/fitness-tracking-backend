@@ -8,7 +8,7 @@ import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.StatusDTO;
-import com.service.backend.model.UpdateStepsGoalReq;
+import com.service.backend.model.UpdateStepsGoalReqDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,7 @@ import static com.service.backend.enums.StatusEnum.INVALID_STEP_GOAL;
  */
 @Slf4j
 @Component("UpdateStepsGoalCommand")
-public class UpdateStepsGoalCommand implements FitnessCommand<UpdateStepsGoalReq, Void> {
+public class UpdateStepsGoalCommand implements FitnessCommand<UpdateStepsGoalReqDTO, Void> {
 
     @Value("${steps.values.max}")
     private Integer stepsValues;
@@ -34,7 +34,7 @@ public class UpdateStepsGoalCommand implements FitnessCommand<UpdateStepsGoalReq
     private GoalsLogic logic;
 
     @Override
-    public FitnessResponseEntity<Void> execute(FitnessRequestEntity<UpdateStepsGoalReq> request) throws FitnessErrorException {
+    public FitnessResponseEntity<Void> execute(FitnessRequestEntity<UpdateStepsGoalReqDTO> request) throws FitnessErrorException {
         final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);
@@ -59,7 +59,7 @@ public class UpdateStepsGoalCommand implements FitnessCommand<UpdateStepsGoalReq
         return response;
     }
 
-    private FitnessResponseEntity<Void> updateStepsGoal(UpdateStepsGoalReq request) {
+    private FitnessResponseEntity<Void> updateStepsGoal(UpdateStepsGoalReqDTO request) {
         final var methodName = "execute";
 
         log.debug(GenericLogEnum.START_MESSAGE.getMessage() + methodName);

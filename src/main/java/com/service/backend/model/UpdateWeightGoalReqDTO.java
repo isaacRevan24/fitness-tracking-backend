@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 @Builder
 @ToString
-public class UpdateWeightGoalReq implements Serializable {
+public class UpdateWeightGoalReqDTO implements Serializable {
 
     @Serial
     @JsonIgnore
@@ -26,12 +26,12 @@ public class UpdateWeightGoalReq implements Serializable {
     @NotNull
     private Double weightGoal;
 
-    public UpdateWeightGoalReq(UUID clientId, Double weightGoal) {
+    public UpdateWeightGoalReqDTO(UUID clientId, Double weightGoal) {
         this.clientId = clientId;
         this.weightGoal = weightGoal;
     }
 
-    public UpdateWeightGoalReq() {
+    public UpdateWeightGoalReqDTO() {
     }
 
     public UUID getClientId() {

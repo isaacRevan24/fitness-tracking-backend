@@ -6,7 +6,7 @@ import com.service.backend.enums.StatusEnum;
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
-import com.service.backend.model.UpdateStepsGoalReq;
+import com.service.backend.model.UpdateStepsGoalReqDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,13 +38,13 @@ class UpdateStepsGoalCommandTest {
 
     @Autowired
     @Qualifier("UpdateStepsGoalCommand")
-    private FitnessCommand<UpdateStepsGoalReq, Void> underTest;
+    private FitnessCommand<UpdateStepsGoalReqDTO, Void> underTest;
 
     @Test
     void itShouldSuccessfullyUpdateStepGoal() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateStepsGoalReq>();
-        request.setBody(new UpdateStepsGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100));
+        final var request = new FitnessRequestEntity<UpdateStepsGoalReqDTO>();
+        request.setBody(new UpdateStepsGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100));
 
         // Mock
         final var mockStatus = mapper.toStatusDTO(StatusEnum.SUCCESS);
@@ -60,8 +60,8 @@ class UpdateStepsGoalCommandTest {
     @Test
     void itShouldFailBecauseInvalidStepsValues() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateStepsGoalReq>();
-        request.setBody(new UpdateStepsGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 1000000));
+        final var request = new FitnessRequestEntity<UpdateStepsGoalReqDTO>();
+        request.setBody(new UpdateStepsGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 1000000));
 
         // When
         final var response = underTest.execute(request);
@@ -73,8 +73,8 @@ class UpdateStepsGoalCommandTest {
     @Test
     void itShouldFailBecauseFitnessError() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateStepsGoalReq>();
-        request.setBody(new UpdateStepsGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100));
+        final var request = new FitnessRequestEntity<UpdateStepsGoalReqDTO>();
+        request.setBody(new UpdateStepsGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100));
 
         // Mock
         doThrow(new FitnessErrorException(
@@ -92,8 +92,8 @@ class UpdateStepsGoalCommandTest {
     @Test
     void itShouldFailBecauseInternalError() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateStepsGoalReq>();
-        request.setBody(new UpdateStepsGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100));
+        final var request = new FitnessRequestEntity<UpdateStepsGoalReqDTO>();
+        request.setBody(new UpdateStepsGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100));
 
         // Mock
         doThrow(new RuntimeException()).when(logic).updateStepsGoal(any(), anyInt());

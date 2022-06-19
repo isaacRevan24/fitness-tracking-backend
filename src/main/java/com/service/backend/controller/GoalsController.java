@@ -7,8 +7,8 @@ import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.mapper.FitnessMapper;
 import com.service.backend.model.AddGoalsReqDTO;
 import com.service.backend.model.GoalsResDTO;
-import com.service.backend.model.UpdateStepsGoalReq;
-import com.service.backend.model.UpdateWeightGoalReq;
+import com.service.backend.model.UpdateStepsGoalReqDTO;
+import com.service.backend.model.UpdateWeightGoalReqDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -39,11 +39,11 @@ public class GoalsController {
 
     @Autowired
     @Qualifier("UpdateWeightGoalsCommand")
-    private FitnessCommand<UpdateWeightGoalReq, Void> updateWeightGoalCommand;
+    private FitnessCommand<UpdateWeightGoalReqDTO, Void> updateWeightGoalCommand;
 
     @Autowired
     @Qualifier("UpdateStepsGoalCommand")
-    private FitnessCommand<UpdateStepsGoalReq, Void> updateStepsGoalCommand;
+    private FitnessCommand<UpdateStepsGoalReqDTO, Void> updateStepsGoalCommand;
 
     @Autowired
     private FitnessMapper mapper;
@@ -65,16 +65,16 @@ public class GoalsController {
     }
 
     @PutMapping(path = "/weight")
-    public ResponseEntity<BaseResponseEntity> updateWeightGoal(@Valid @RequestBody FitnessRequestEntity<UpdateWeightGoalReq> body) {
-        final var request = new FitnessRequestEntity<UpdateWeightGoalReq>();
+    public ResponseEntity<BaseResponseEntity> updateWeightGoal(@Valid @RequestBody FitnessRequestEntity<UpdateWeightGoalReqDTO> body) {
+        final var request = new FitnessRequestEntity<UpdateWeightGoalReqDTO>();
         request.setBody(body.getBody());
         final var response = updateWeightGoalCommand.execute(request);
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);
     }
 
     @PutMapping(path = "/steps")
-    public ResponseEntity<BaseResponseEntity> updateStepsGoal(@Valid @RequestBody FitnessRequestEntity<UpdateStepsGoalReq> body) {
-        final var request = new FitnessRequestEntity<UpdateStepsGoalReq>();
+    public ResponseEntity<BaseResponseEntity> updateStepsGoal(@Valid @RequestBody FitnessRequestEntity<UpdateStepsGoalReqDTO> body) {
+        final var request = new FitnessRequestEntity<UpdateStepsGoalReqDTO>();
         request.setBody(body.getBody());
         final var response = updateStepsGoalCommand.execute(request);
         return ResponseEntity.status(response.getStatus().getHttpStatus()).body(response);

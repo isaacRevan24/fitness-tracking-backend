@@ -6,7 +6,7 @@ import com.service.backend.enums.StatusEnum;
 import com.service.backend.exceptions.FitnessErrorException;
 import com.service.backend.logic.GoalsLogic;
 import com.service.backend.mapper.FitnessMapper;
-import com.service.backend.model.UpdateWeightGoalReq;
+import com.service.backend.model.UpdateWeightGoalReqDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,7 +32,7 @@ class UpdateWeightGoalCommandTest {
 
     @Autowired
     @Qualifier("UpdateWeightGoalsCommand")
-    private FitnessCommand<UpdateWeightGoalReq, Void> underTest;
+    private FitnessCommand<UpdateWeightGoalReqDTO, Void> underTest;
 
     @Autowired
     private FitnessMapper mapper;
@@ -43,8 +43,8 @@ class UpdateWeightGoalCommandTest {
     @Test
     void itShouldSuccessfullyUpdateWeightGoals() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateWeightGoalReq>();
-        request.setBody(new UpdateWeightGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100.5));
+        final var request = new FitnessRequestEntity<UpdateWeightGoalReqDTO>();
+        request.setBody(new UpdateWeightGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100.5));
 
         // Mock
         final var mockStatus = mapper.toStatusDTO(StatusEnum.SUCCESS);
@@ -60,8 +60,8 @@ class UpdateWeightGoalCommandTest {
     @Test
     void itShouldFailBecauseInvalidWeight() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateWeightGoalReq>();
-        request.setBody(new UpdateWeightGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 1000000.5));
+        final var request = new FitnessRequestEntity<UpdateWeightGoalReqDTO>();
+        request.setBody(new UpdateWeightGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 1000000.5));
 
         // When
         final var response = underTest.execute(request);
@@ -73,8 +73,8 @@ class UpdateWeightGoalCommandTest {
     @Test
     void itShouldFailBecauseFitnessError() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateWeightGoalReq>();
-        request.setBody(new UpdateWeightGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100.5));
+        final var request = new FitnessRequestEntity<UpdateWeightGoalReqDTO>();
+        request.setBody(new UpdateWeightGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100.5));
 
         // Mock
         doThrow(new FitnessErrorException(
@@ -92,8 +92,8 @@ class UpdateWeightGoalCommandTest {
     @Test
     void itShouldFailBecauseInternalError() {
         // Given
-        final var request = new FitnessRequestEntity<UpdateWeightGoalReq>();
-        request.setBody(new UpdateWeightGoalReq(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100.5));
+        final var request = new FitnessRequestEntity<UpdateWeightGoalReqDTO>();
+        request.setBody(new UpdateWeightGoalReqDTO(UUID.fromString("e47dc1b6-5dda-46fa-aeaa-9a1c38564477"), 100.5));
 
         // Mock
         doThrow(new RuntimeException()).when(logic).updateWeightGoal(any(), anyDouble());
