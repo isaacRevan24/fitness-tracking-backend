@@ -4,7 +4,7 @@ import com.service.backend.FitnessTrackingApplication;
 import com.service.backend.command.FitnessCommand;
 import com.service.backend.controller.entity.FitnessResponseEntity;
 import com.service.backend.mapper.FitnessMapper;
-import com.service.backend.model.UpdateStepsGoalReq;
+import com.service.backend.model.UpdateStepsGoalReqDTO;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ class UpdateStepsGoalControllerTest {
 
     @MockBean
     @Qualifier("UpdateStepsGoalCommand")
-    private FitnessCommand<UpdateStepsGoalReq, Void> updateStepsGoalCommand;
+    private FitnessCommand<UpdateStepsGoalReqDTO, Void> updateStepsGoalCommand;
 
     @Test
     void itShouldMakeRequestSuccessfully() throws Exception {

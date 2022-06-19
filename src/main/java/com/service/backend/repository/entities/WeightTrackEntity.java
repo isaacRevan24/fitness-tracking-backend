@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -19,12 +20,12 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "goals")
-@Table(name = "goals")
-public class GoalsEntity implements Serializable {
+@Entity(name = "weight_track")
+@Table(name = "weight_track")
+public class WeightTrackEntity implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = 693609396463190403L;
+    private static final long serialVersionUID = -7326810366049032079L;
 
     @Id
     @Column(name = "id")
@@ -33,7 +34,7 @@ public class GoalsEntity implements Serializable {
     @Column(name = "weight")
     private Double weight;
 
-    @Column(name = "steps")
-    private Integer steps;
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }

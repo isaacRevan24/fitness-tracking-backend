@@ -14,7 +14,7 @@ import java.util.UUID;
  */
 @Builder
 @ToString
-public class UpdateStepsGoalReq implements Serializable {
+public class UpdateStepsGoalReqDTO implements Serializable {
 
     @Serial
     @JsonIgnore
@@ -26,12 +26,12 @@ public class UpdateStepsGoalReq implements Serializable {
     @NotNull
     private Integer stepsGoal;
 
-    public UpdateStepsGoalReq(UUID clientId, Integer stepsGoal) {
+    public UpdateStepsGoalReqDTO(UUID clientId, Integer stepsGoal) {
         this.clientId = clientId;
         this.stepsGoal = stepsGoal;
     }
 
-    public UpdateStepsGoalReq() {
+    public UpdateStepsGoalReqDTO() {
     }
 
     public UUID getClientId() {
