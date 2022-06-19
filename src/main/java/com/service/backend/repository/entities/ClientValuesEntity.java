@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serial;
@@ -28,7 +27,7 @@ import java.util.UUID;
 public class ClientValuesEntity implements Serializable {
 
     @Serial
-    private static final long serialVersionUID = -4791257399037842444L;
+    private static final long serialVersionUID = 7487853543950413113L;
 
     @Id
     @Column(name = "id")
@@ -40,8 +39,8 @@ public class ClientValuesEntity implements Serializable {
     @Column(name = "height_metric", length = 2)
     private String heightMetric;
 
-    @Column(name = "weight")
-    private Double weight;
+    @Column(name = "initial_weight")
+    private Double initialWeight;
 
     @Column(name = "weight_metric", length = 2)
     private String weightMetric;

@@ -29,9 +29,8 @@ public interface FitnessMapper {
     @Mapping(source = "request.age", target = "age")
     ClientEntity toClientEntity(final SignUpReqDTO request);
 
-
     @Mapping(source = "request.height", target = "height")
-    @Mapping(source = "request.weight", target = "weight")
+    @Mapping(source = "request.weight", target = "initialWeight")
     @Mapping(source = "request.heightMetric", target = "heightMetric")
     @Mapping(source = "request.weightMetric", target = "weightMetric")
     @Mapping(source = "id", target = "id")
