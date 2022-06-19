@@ -1,13 +1,14 @@
 package com.service.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.ToString;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class AddWeightTrackReqDTO implements Serializable {
 
     @Serial
+    @JsonIgnore
     private static final long serialVersionUID = -7787999439636970403L;
 
     @NotNull
@@ -28,9 +30,9 @@ public class AddWeightTrackReqDTO implements Serializable {
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date date;
+    private LocalDateTime date;
 
-    public AddWeightTrackReqDTO(UUID clientId, Double weight, Date date) {
+    public AddWeightTrackReqDTO(UUID clientId, Double weight, LocalDateTime date) {
         this.clientId = clientId;
         this.weight = weight;
         this.date = date;
@@ -55,11 +57,11 @@ public class AddWeightTrackReqDTO implements Serializable {
         this.weight = weight;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }
