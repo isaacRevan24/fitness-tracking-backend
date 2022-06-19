@@ -1,5 +1,6 @@
 package com.service.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.ToString;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class AddWeightTrackResDTO implements Serializable {
 
     @Serial
+    @JsonIgnore
     private static final long serialVersionUID = 1710497286422278935L;
 
     @NotNull
