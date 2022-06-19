@@ -28,7 +28,7 @@ import static org.mockito.Mockito.doThrow;
 
 @SpringBootTest(classes = {FitnessTrackingApplication.class},
         properties = "spring.main.allow-bean-definition-overriding=true")
-class UpdateWeightGoalsCommandTest {
+class UpdateWeightGoalCommandTest {
 
     @Autowired
     @Qualifier("UpdateWeightGoalsCommand")
