@@ -1,6 +1,7 @@
 package com.service.backend.mapper;
 
 import com.service.backend.model.AddGoalsReqDTO;
+import com.service.backend.model.AddWeightTrackReqDTO;
 import com.service.backend.model.GoalsResDTO;
 import com.service.backend.model.SignUpReqDTO;
 import com.service.backend.model.StatusDTO;
@@ -8,6 +9,7 @@ import com.service.backend.enums.StatusEnum;
 import com.service.backend.repository.entities.ClientEntity;
 import com.service.backend.repository.entities.ClientValuesEntity;
 import com.service.backend.repository.entities.GoalsEntity;
+import com.service.backend.repository.entities.WeightTrackEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -44,5 +46,10 @@ public interface FitnessMapper {
     @Mapping(source = "goal.weight", target = "weightGoal")
     @Mapping(source = "goal.steps", target = "stepsGoal")
     GoalsResDTO toAddGoalResp(final GoalsEntity goal);
+
+    @Mapping(source = "request.clientId", target = "id")
+    @Mapping(source = "request.weight", target = "weight")
+    @Mapping(source = "request.date", target = "createdAt")
+    WeightTrackEntity toWeightTrackEntity(final AddWeightTrackReqDTO request);
 
 }
